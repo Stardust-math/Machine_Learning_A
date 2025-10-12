@@ -1,0 +1,1673 @@
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Template for homework of Introduction to Machine Learning.
+%
+%  Fill in your name, lecture number, lecture date and body
+%  of homework as indicated below.
+%         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,letter,notitlepage]{article}
+%Mise en page
+\usepackage[left=2cm, right=2cm, lines=45, top=0.8in, bottom=0.7in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\newcommand\Loadedframemethod{TikZ}
+\usepackage[framemethod=\Loadedframemethod]{mdframed}
+\usepackage{amssymb,amsmath}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{bm}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{extarrows}
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Define math operator %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\argmin}{\bf argmin}
+\DeclareMathOperator*{\relint}{\bf relint\,}
+\DeclareMathOperator*{\dom}{\bf dom\,}
+\DeclareMathOperator*{\intp}{\bf int\,}
+%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Exercise environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{exercise}{\textbf{Exercise}}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% End of the Exercise environment %%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Problem environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{problem}{\textbf{Problem}}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% End of the Exercise environment %%
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Solution Environment %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\declaretheoremstyle
+[
+spaceabove=0pt,
+spacebelow=0pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries,
+notebraces={(}{)},
+headpunct={:\;},
+headindent={},
+postheadspace={ },
+bodyfont=\normalfont,
+qed=$\blacksquare$,
+preheadhook={\begin{mdframed}[style=myframedstyle]},
+postfoothook=\end{mdframed},
+]{mystyle}
+\declaretheorem[style=mystyle,title=Solution]{solution}
+\mdfdefinestyle{myframedstyle}{%
+	topline=false,
+	rightline=false,
+	leftline=false,
+	bottomline=false,
+	skipabove=-6ex,
+	leftmargin=-10,
+	rightmargin=-10,
+	backgroundcolor=black!5}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% End of the Solution environment
+
+\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+
+
+\newcommand{\proj}[2]{\textbf{P}_{#2} (#1)}
+\newcommand{\lspan}[1]{\textbf{span}  (#1)  }
+\newcommand{\rank}[1]{ \textbf{rank}  (#1)  }
+\newcommand{\tr}{ \operatorname{tr}  }
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\newcommand{\mb}[1]{\mathbf{#1}}
+
+\DeclareMathOperator*{\cl}{\bf cl\,}
+\DeclareMathOperator*{\bd}{\bf bd\,}
+\DeclareMathOperator*{\conv}{\bf conv\,}
+\DeclareMathOperator*{\epi}{\bf epi\,}
+
+% Definition environment	
+\theoremstyle{definition}	
+\newtheorem{definition}{Definition}	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%           Homework info.             %%
+\newcommand{\posted}{\text{Sep. 28th, 2025}}       			%%% FILL IN POST DATE HERE
+\newcommand{\due}{\text{Oct. 16th, 2025}} 			%%% FILL IN Due DATE HERE
+\newcommand{\hwno}{\text{1}} 		           			%%% FILL IN LECTURE NUMBER HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Put your information here   %%
+\newcommand{\name}{\text{San Zhang}}  	          			%%% FILL IN YOUR NAME HERE
+\newcommand{\id}{\text{PBXXXXXXXX}}		       			%%% FILL IN YOUR ID HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \lhead{
+% 	\textbf{\name}
+% }
+% \rhead{
+% 	\textbf{\id}
+% }
+\chead{\textbf{
+		Homework \hwno
+}}
+
+
+\begin{document}
+	\vspace*{-4\baselineskip}
+	\thispagestyle{empty}
+	
+	
+	\begin{center}
+		{\bf\large Introduction to Machine Learning}\\
+		{Fall 2025}\\
+		University of Science and Technology of China
+	\end{center}
+	
+	\noindent
+	Lecturer: Zhihui Li, Xiaojun Chang  			 %%% FILL IN LECTURER HERE
+	\hfill
+	Homework \hwno             			
+	\\
+	Posted: \posted
+	\hfill
+	Due: \due
+%	Name: \name             			
+%	\hfill
+%	ID: \id						
+%	\hfill
+	
+	\noindent
+	\rule{\textwidth}{2pt}
+	
+	\medskip
+	
+	
+	
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%% BODY OF HOMEWORK GOES HERE
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\textbf{Notice, }to get the full credits, please present your solutions step by step.
+
+    \begin{exercise}[Limit and Limit Points]
+\begin{enumerate}
+    \item Show that $\{\mathbf{x}_n\}$ in $\mathbb{R}^n$ converges to $\mathbf{x}\in \mathbb{R}^n$ if and only if $\{\mathbf{x}_n\}$ is bounded and has a unique limit point $\mathbf{x}$.
+    \item (\textbf{Limit Points of a Set}). Let $C$ be a subset of $\mathbb{R}^n$. A point $\mathbf{x}\in \mathbb{R}^n$ is called a limit point of $C$ if there is a sequence $\{\mathbf{x}_n\}$ in $C$ such that $\mathbf{x}_n\to \mathbf{x}$ and $\mathbf{x}_n \not=\mathbf{x}$ for all positive integers $n$. If $\mathbf{x}\in C$ and $\mathbf{x}$ is not a limit point of $C$, then $\mathbf{x}$ is called an isolated point of $C$. Let $C^\prime$ be the set of limit points of the set $C$. Please show the following statements.
+    \begin{enumerate}
+        \item If $C = (0,1)\cup\{2\}\subset \mathbb{R}$, then $C^\prime =[0,1]$ and $x=2$ is an isolated point of $C$.
+        \item  The set $C^\prime$ is closed.
+    \end{enumerate}
+\end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{solution} \textbf{Limit and Limit Points}
+\begin{enumerate}
+\item \ding{172}Necessity:
+
+$\lim\limits_{n\to\infty}x_n = x$ $\Longrightarrow$ $\forall$ $\epsilon>0$, $\exists$ $N>0$, s.t. when $n \geq N$, $\Vert x_n-x\Vert < \epsilon$ $\Longrightarrow$ $\Vert x_n \Vert < \Vert x \Vert + \epsilon$.
+
+Set
+\[
+M = \max\{\Vert x_1 \Vert, \Vert x_2 \Vert, \cdots, \Vert x_{N-1} \Vert, \Vert x \Vert+\epsilon\}.
+\]
+Clearly, $\Vert x_n \Vert \leq M$, $\forall$ $n > 0$, i.e., sequence $\{x_n\}$ is bounded.
+
+Besides, $\lim\limits_{n\to \infty} x_n = x$ $\Longrightarrow$ all subsequences $\{x_{n_k}\}$ also converge to $x$ $\Longrightarrow$ limit point $x$ is unique.
+
+\ding{173}Sufficiency:
+
+Suppose, for the sake of contradiction, that $\lim\limits_{n \to \infty}x_n \neq x$. Then $\exists$ $\epsilon_0 > 0$ and a subsequence $\{x_{n_k}\}$ such that
+\[
+\Vert x_{n_k} - x \Vert \geq \epsilon_0,\;\forall\;k > 0
+\]
+Accoring to Bolzano-Weierstrass Theorem, $\{x_{n_k}\}$ is bounded $\Longrightarrow$ there is a further convergent subsequence $\{x_{n_{k_j}}\}$ with $\lim\limits_{j\to\infty} x_{n_{k_{j}}} = y \in \mathbb{R}^n$. By the uniqueness of limit points, $y = x$. Therefore, $\Vert x_{n_{k_j}} - x \Vert \rightarrow 0$, which contradicts $\Vert x_{n_k} - x \Vert \geq \epsilon_0$, $\forall$ $k > 0$.
+
+Hence our supposition was false and $x_n \rightarrow x$.
+\item
+\begin{enumerate}
+	\item For any $x \in [0,1]$, take $x_n = x+\frac{1}{n}$ if $x < 1$; $x_n = x - \frac{1}{n}$ if $x > 0$. Then it is clear that $x_n \neq x$, $\forall n >0 $ and $x_n \rightarrow x$. Thus, $x$ is a limit point of $C$.
+	
+	If $x\notin [0,1]$, $dist(x,(0,1)) > 0$ $\Longrightarrow$ $\exists$ $\epsilon > 0$, s.t. $B(x,\epsilon)\backslash\{x\} \cap C = \emptyset$ $\Longrightarrow$ $x$ is not a limit point of $C$.
+
+	Thus $C^{\prime} = [0,1]$. Correspondingly, $x=2$ is an isolated point of $C$.
+	\item To prove $C^{\prime}$ is closed $\Longleftrightarrow$ to prove $C^{\prime} = \overline{C^{\prime}}$ $\Longleftrightarrow$ to prove all of the limit points of $C^{\prime}$ belong to $C^{\prime}$
+	
+	Set $x$ as any limit point of $C^{\prime}$ $\Longrightarrow$ there exists a sequence $\{x_n\} \subset C^{\prime}\backslash \{x\}$ with $x_n \rightarrow x$.
+
+	For each $n$, since $x_n \in C^{\prime}$, there exists a sequence $\{x_{n,m}\} \subset C\backslash\{x_n\}$ with $x_{n,m} \rightarrow x_n$.
+
+	$\forall$ $\epsilon > 0$, $\exists N>0$, s.t. when $n \geq N$, $\Vert x_n - x \Vert < \frac{\epsilon}{2}$. Let $m$ be large enough, then $\Vert x_{n,m} - x_n \Vert < \frac{\epsilon}{2}$. By triangle inequality,
+	\[
+	\Vert x_{n,m} - x \Vert \leq \Vert x_{n,m} - x_n \Vert + \Vert x_n - x \Vert \leq \epsilon
+	\]
+	Therefore, $x_{n,m} \in C$ implies $x\in C^{\prime}$.
+
+	In conclusion, the set $C^{\prime}$ is closed.
+\end{enumerate}
+\end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{exercise}[Norms]
+    In this exercise, we will give some examples of norms and a useful theorem related to norms in \textbf{finite} dimensional vector space.
+    \begin{enumerate}
+        \item \textbf{$l_p$ norm:} The $l_p$ norm is defined by
+        \begin{align*}
+			\|\mathbf{x}\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p}
+		\end{align*}
+		where $\mathbf{x}=(x_1,\dots,x_n)\in \mathbb{R}^n$ and $p\ge 1$. 
+		\begin{enumerate}
+			\item Please show that the $l_p$ norm is a norm.
+			\item Please show that the following equality.
+			\begin{align*}
+				\lim_{p\rightarrow \infty}\|\mathbf{x}\|_p = \|\mathbf{x}\|_{\infty} = \max_{1\le i\le n}|x_i|.
+			\end{align*}
+			The $l_{\infty}$ norm is defined as above.
+		\end{enumerate}
+		\item \textbf{Operator norms:} Suppose that $\mathbf{A}\in \mathbb{R}^{m\times n}$, which can be viewed as a linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^m$. Please show the following operator norms' equality.
+		\begin{enumerate}
+			\item Let $\|\mathbf{A}\|_1 = \sup_{\mathbf{x}\in \mathbb{R}^n, \mathbf{x}\not=\mathbf{0}}\frac{\|\mathbf{Ax}\|_1}{\|\mathbf{x}\|_1}$. Please show that
+			\begin{align*}
+				\|\mathbf{A}\|_1 = \max_{1\le j\le n}\sum_{i=1}^m|a_{ij}|.
+			\end{align*}
+			\item Let $\|\mathbf{A}\|_{\infty} = \sup_{\mathbf{x}\in \mathbb{R}^n, \mathbf{x}\not=\mathbf{0}}\frac{\|\mathbf{Ax}\|_{\infty}}{\|\mathbf{x}\|_{\infty}}$. Please show that
+			\begin{align*}
+				\|\mathbf{A}\|_{\infty} = \max_{1\le i\le m}\sum_{j=1}^n|a_{ij}|.
+			\end{align*}
+		\end{enumerate}
+		\item \textbf{(Optional) Dual norm:} Let $\|\cdot\|$ be a norm on $\mathbb{R}^n$. The dual norm of $\|\cdot\|$ is defined by
+		\begin{align*}
+			\|\mathbf{x}\|_* = \sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|\le 1}\mathbf{y}^{\top}\mathbf{x}.
+		\end{align*}
+		\begin{enumerate}
+			\item Please show that the dual of the Euclidean norm is the Euclidean norm itself. i.e., 
+			\begin{align*}
+				\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_2\le 1}\mathbf{y}^{\top}\mathbf{x} = \|\mathbf{x}\|_2.
+			\end{align*}
+			\item Please show that the dual of the $l_1$ norm is the $l_{\infty}$ norm. i.e.,
+			\begin{align*}
+				\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_1\le 1}\mathbf{y}^{\top}\mathbf{x} = \|\mathbf{x}\|_{\infty}.
+			\end{align*}
+		\end{enumerate}
+    \end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Norms}
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item
+		\ding{172} Positive Definiteness: 
+		\[
+		|x_i| \geq 0 \Longrightarrow \|\mathbf{x}\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p} \geq 0
+		\]
+		where the equality holds if and only if $x_i = 0$, $\forall$ $1 \leq i \leq n$ $\Longleftrightarrow$ $\mathbf{x} = \mathbf{0}$.
+
+		\ding{173} Homogeneity: $\forall$ $\alpha \in \mathbb{R}$,
+		\[
+		\Vert \alpha \mathbf{x} \Vert_{p} = \left(\sum_{i=1}^n |\alpha x_i|^p\right)^{1/p} = |\alpha| \left(\sum_{i=1}^n |x_i|^p\right)^{1/p} = |\alpha| \Vert \mathbf{x} \Vert_{p}
+		\]
+
+		\ding{174} Triangle Inequality: Let $q = \frac{p}{p-1}$ to satisfy $\frac{1}{p} + \frac{1}{q} = 1$.
+		
+		$\forall$ $\mathbf{x}$, $\mathbf{y}\in \mathbb{R}^n$, according to H$\ddot{\text{o}}$lder inequality,
+		\begin{align*}
+			\Vert \mathbf{x+y} \Vert_{p}^{p} &= \sum\limits_{i=1}^{n}|x_i+y_i|^{p}\\
+			 &\leq \sum\limits_{i=1}^{n}|x_i| \cdot |x_i+y_i|^{p-1} + \sum\limits_{i=1}^{n}|y_i| \cdot |x_i+y_i|^{p-1}\\
+			 & \leq \left(\sum\limits_{i=1}^{n} |x_i|^p\right)^{1/p} \cdot \left(\sum\limits_{i=1}^{n}|x_i+y_i|^{(p-1)q}\right)^{1/q}\\
+			 & + \left(\sum\limits_{i=1}^{n} |y_i|^p\right)^{1/p} \cdot \left(\sum\limits_{i=1}^{n}|x_i+y_i|^{(p-1)q}\right)^{1/q}\\
+			 & = \left(\Vert \mathbf{x} \Vert_{p} + \Vert \mathbf{y} \Vert_{p}\right) \cdot \left(\sum\limits_{i=1}^{n}|x_i+y_i|^{p}\right)^{1/q}
+		\end{align*}
+		\[
+		\Longrightarrow
+		\Vert \mathbf{x+y} \Vert_{p} = \left(\sum\limits_{i=1}^{n}|x_i+y_i|^{p}\right)^{1/p} = \left(\sum\limits_{i=1}^{n}|x_i+y_i|^{p}\right)^{1-1/q} \leq \Vert \mathbf{x} \Vert_{p} + \Vert \mathbf{y} \Vert_{p}
+		\]
+		\item 
+		It is clear that
+		\[
+		\Vert \mathbf{x} \Vert_{\infty}^{p} \leq \Vert \mathbf{x} \Vert_{p}^{p} \leq n \Vert \mathbf{x} \Vert_{\infty}^{p}
+		\Longleftrightarrow
+		\Vert \mathbf{x} \Vert_{\infty} \leq \Vert \mathbf{x} \Vert_{p} \leq n^{1/p} \Vert \mathbf{x} \Vert_{\infty}
+		\]
+		By the Squeeze Theorem,
+		\[
+		\lim\limits_{p\to\infty} n^{1/p} = 1 \Longrightarrow \lim_{p\rightarrow \infty}\|\mathbf{x}\|_p = \|\mathbf{x}\|_{\infty}
+		\]
+	\end{enumerate}
+\item
+	\begin{enumerate}
+		When $\mathbf{A} = \mathbf{0}$, the conclusion is trivial. Thus, the following discussion is based on $\mathbf{A} \neq \mathbf{0}$.
+		\item Divide matrix $\mathbf{A}$ into blocks by columns as $\left(a_1, a_2, \cdots, a_n\right)$ and let $\Vert a_{j_0} \Vert_1 = \max\limits_{1 \leq j \leq n}\Vert a_j \Vert_1$.
+		
+		Then $\forall$ $\mathbf{x}\in\mathbb{R}^n$ that satisfies $\Vert \mathbf{x} \Vert_1 = \sum\limits_{i=1}^{n}|x_i| = 1$,
+		\[
+		\Vert \mathbf{Ax} \Vert_1 = \Vert \sum\limits_{j=1}^{n} x_j a_j \Vert_1 \leq \sum\limits_{j=1}^{n} |x_j|\Vert a_j \Vert_1 \leq \left(\sum\limits_{i=1}^{n}|x_i|\right) \max\limits_{1 \leq j \leq n}\Vert a_j \Vert_1 = \Vert a_{j_0} \Vert_1
+		\]
+		Besides, $\Vert \mathbf{A e_{j_0}} \Vert_1 = \Vert a_{j_0} \Vert_1$.
+		In conclusion, 
+		\[
+		\Vert \mathbf{A} \Vert_1 = \max\limits_{\Vert \mathbf{x} \Vert_1 = 1} \Vert \mathbf{Ax} \Vert_1 = \max\limits_{1 \leq j \leq n} \Vert a_j \Vert_1 = \max\limits_{1 \leq j \leq n}\sum\limits_{i=1}^{n}|a_{ij}|.
+		\]
+		\item $\forall$ $\mathbf{x}\in\mathbb{R}^n$ that satisfies $\Vert \mathbf{x} \Vert_{\infty} = 1$,
+		\[
+		\Vert \mathbf{Ax} \Vert_{\infty} = \max\limits_{1 \leq i \leq n}\Big|\sum\limits_{j=1}^{n}a_{ij}x_{j}\Big| \leq \max\limits_{1 \leq i \leq n}\sum\limits_{j=1}^{n}|a_{ij}||x_j| \leq \max\limits_{1 \leq i \leq n}\sum\limits_{j=1}^{n}|a_{ij}|
+		\]
+		Set $\max\limits_{1 \leq i \leq n} \sum\limits_{j=1}^{n}|a_{ij}| = \sum\limits_{j=1}^{n} |a_{kj}|$. Then let $\mathbf{\tilde{x}} = \left(\text{sgn}(a_{k1}), \cdots, \text{sgn}(a_{kn})\right)^{T}$.
+
+		$\mathbf{A} \neq \mathbf{0}$ $\Longrightarrow$ $\Vert \mathbf{\tilde{x}} \Vert_{\infty} = 1$ and it is clear that $\Vert \mathbf{A\tilde{x}} \Vert_{\infty} = \max\limits_{1 \leq i \leq n}\sum\limits_{j=1}^{n}|a_{ij}|$.
+	\end{enumerate}
+\item
+	\begin{enumerate}
+		\item By Cauchy-Schwarz Inequality,
+		\[
+		\mathbf{y^{T}x} \leq \Vert \mathbf{y} \Vert_2 \Vert \mathbf{x} \Vert_2 \leq \Vert \mathbf{x} \Vert_2
+		\Longrightarrow
+		\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_2\le 1}\mathbf{y}^{\top}\mathbf{x} \leq \|\mathbf{x}\|_2.
+		\]
+		If $\mathbf{x} = \mathbf{0}$, the target equality is trivial; if not, choose $\mathbf{y_0} = \frac{\mathbf{x}}{\Vert \mathbf{x} \Vert_2}$, which satisfies $\Vert \mathbf{y_0} \Vert_2 = 1$. Then $\mathbf{y_0^{T}x} = \frac{\mathbf{x^{T}x}}{\Vert \mathbf{x} \Vert_2} = \Vert \mathbf{x} \Vert_2$.
+
+		In conclusion, $\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_2\le 1}\mathbf{y}^{\top}\mathbf{x} = \|\mathbf{x}\|_2$.
+		\item For any $\mathbf{y} = (y_1, \cdots, y_n)^{T}$ with $\Vert y \Vert_1 \leq 1$,
+		\[
+		\mathbf{y^{T}x} = \sum\limits_{i=1}^{n}x_i y_i \leq \sum\limits_{i=1}^{n}|x_i||y_i| \leq \max\limits_{1 \leq i \leq n}|x_i| \sum\limits_{i=1}^{n}|y_i| \leq \Vert \mathbf{x} \Vert_{\infty}
+		\]
+		\[
+		\Longrightarrow
+		\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_1\le 1}\mathbf{y}^{\top}\mathbf{x} \leq \|\mathbf{x}\|_{\infty}.
+		\]
+		If $\mathbf{x} = \mathbf{0}$, the target equality is trivial; if not, let $k = \arg \max\limits_{1 \leq i \leq n}|x_i|$ and choose $\mathbf{y_0} = \text{sgn}(x_k)\mathbf{e_{k}}$ so that $\Vert y_0 \Vert_1 = 1$. Then $\mathbf{y_0^{T}x} = \text{sgn}(\mathbf{x_k})\mathbf{x_k} = \Vert \mathbf{x} \Vert_{\infty}$.
+
+		In conclusion, $\sup_{\mathbf{y}\in \mathbb{R}^n, \|\mathbf{y}\|_1\le 1}\mathbf{y}^{\top}\mathbf{x} = \|\mathbf{x}\|_{\infty}$.
+	\end{enumerate}
+\end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{exercise}[Open and Closed Sets]
+    The norm ball $\{\mathbf{y} \in \mathbb{R}^n:\|\mathbf{y}-\mathbf{x}\|_2<r, \mathbf{x}\in \mathbb{R}^n\}$ is denoted by $B_r(\mathbf{x})$.
+    \begin{enumerate}
+        \item Given a set $C \subset \mathbb{R}^n$, please show the following are equivalent.
+        \begin{enumerate}
+            \item The set $C$ is closed; that is $\cl C=C$.
+            \item The complement of $C$ is open.
+            \item If $B_{\epsilon}(\mathbf{x})\cap C \not=\emptyset$ for every $\epsilon>0$, then $\mathbf{x}\in C$.
+        \end{enumerate}
+        \item Given $A\subset\mathbb{R}^n$, a set $C\subset A$ is called open in $A$ if $$C=\{\mathbf{x}\in C: B_{\epsilon}(\mathbf{x})\cap A \subset C\,\text{for some}\, \epsilon>0\}.$$
+        A set $C$ is said to be closed in $A$ if $A\setminus C$ is open in $A$.
+        \begin{enumerate}
+            \item Let $B= [0,1] \cup \{2\}$.  Please show that $[0,1]$ is not an open set in $\mathbb{R}$, while it is both open and closed in $B$.
+            \item Please show that a set $C \subset A$ is open in $A$ if and only if $C=A\cap U$, where $U$ is open in $\mathbb{R}^n$.
+        \end{enumerate}
+
+    \end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Open and Closed Sets}
+\begin{enumerate}
+	\item 
+	(a) $\Longrightarrow$ (b):
+
+	Suppose, for the sake of contradiction, that $C^{c}$ is not open. Then $\exists$ $\mathbf{x}\in C$, s.t. $\forall$ $\epsilon>0$, $B_{\epsilon}(\mathbf{x}) \not\subset C^{c}$ $\Longrightarrow$ take $\mathbf{x_n} \subset B_{\epsilon}(\mathbf{x}) \backslash C^{c} \subset C$ for $\epsilon_n > 0$. Without generality, set $\epsilon_1 > \epsilon_2 > \dots > \epsilon_n \to 0$, then it is clear that sequence $\{\mathbf{x_n}\}$ satisfies $\lim\limits_{n\to\infty}\mathbf{x_n} = \mathbf{x}$. Therefore, $\mathbf{x} \in \cl C = C$, which contradicts $\mathbf{x} \in C^c$.
+
+	(b) $\Longrightarrow$ (c):
+
+	Suppose, for the sake of contradiction, that $\exists$ $\mathbf{x} \in C^c$, s.t. $B_{\epsilon}(\mathbf{x})\cap C \not=\emptyset$ for every $\epsilon>0$. Because $C^c$ is open, $\exists$ $\delta>0$, s.t. $B_{\delta}(\mathbf{x}) \subset C^c$ $\Longrightarrow$ $B_{\delta}(\mathbf{x}) \subset C \cap C^c = \emptyset$. So this is a contradiction.
+
+	(c) $\Longrightarrow$ (a):
+
+	Suppose, for the sake of contradiction, that $\exists$ a sequence $\{\mathbf{x_n}\} \subset C$, which satisfies $\mathbf{x_n} \to \mathbf{x} \in C^c$, i.e., $\forall$ $\epsilon > 0$, $\exists$ $N > 0$, s.t. when $n \geq N$, $\Vert \mathbf{x_n} - \mathbf{x} \Vert < \epsilon$.
+	Therefore, $B_{\epsilon}(\mathbf{x})\cap C \supset \{x_n\} \neq \emptyset$ $\Longrightarrow$ $\mathbf{x} \in C$, which contradicts $\mathbf{x} \in C^c$.
+
+	\begin{tikzcd}[column sep=3.8em,row sep=3.8em]
+		& (b) \arrow[dr,Rightarrow] & \\
+		(a) \arrow[ur,Rightarrow] & & (c) \arrow[ll,Rightarrow]
+	\end{tikzcd}
+	In summary, these three hypothesis are equivalent.
+	\item 
+	\begin{enumerate}
+		\item 
+		$\forall$ $\epsilon > 0$, $-\frac{\epsilon}{2} \not\in [0,1]$ $\Longrightarrow$ $B_{\epsilon}(0) = (-\epsilon, \epsilon) \not\subset [0,1]$ $\Longrightarrow$ $[0,1]$ is not an open set in $\mathbb{R}$.
+
+		If $\mathbf{x} \in (0,1)$, take $\epsilon = \min\{\mathbf{x}, \mathbf{1-x}\} > 0$. Then $B_{\epsilon}(\mathbf{x}) \subset [0,1]$ $\Longrightarrow$ $B_{\epsilon}(\mathbf{x}) \cap B = B_{\epsilon}(\mathbf{x}) \subset [0,1]$.
+
+		If $\mathbf{x} = 0$, take $\epsilon = \frac{1}{2} > 0$. Then $B_{\epsilon}(0) = (-\frac{1}{2}, \frac{1}{2})$ $\Longrightarrow$ $B_{\epsilon}(0) \cap B = [0, \frac{1}{2}] \subset [0,1]$. In the same way, if $\mathbf{x} = 1$, take $\epsilon = \frac{1}{2} > 0$. Then $B_{\epsilon}(1) = (\frac{1}{2}, \frac{3}{2})$ $\Longrightarrow$ $B_{\epsilon}(1) \cap B = [\frac{1}{2}, 1] \subset [0,1]$.
+
+		In conclusion, $[0,1]$ is open in $B$.
+
+		Beside, if $\mathbf{x} = 2$, take $\epsilon = \frac{1}{2} > 0$. Then $B_{\epsilon}(2) = (\frac{3}{2}, \frac{5}{2})$ $\Longrightarrow$ $B_{\epsilon}(2) \cap B = \{\frac{1}{2}\} \subset \{\frac{1}{2}\}$ $\Longrightarrow$ $\{2\} = B \backslash [0,1]$ is open in $B$.
+
+		In summary, $[0,1]$ is both open and closed in $B$.
+		\item 
+		\ding{172} Necessity:
+
+		$C \subset A$ is open in $A$ $\Longrightarrow$ $\forall$ $\mathbf{x} \in C$, $\exists$ $\epsilon_{x} > 0$, s.t. $B_{\epsilon_{x}}(\mathbf{x}) \cap A \subset C$ $\Longrightarrow$
+
+		$$\bigcup\limits_{\mathbf{x} \in C} \left(B_{\epsilon_{x}}(\mathbf{x}) \cap A\right) = \left(\bigcup\limits_{\mathbf{x} \in C} B_{\epsilon_{x}}(\mathbf{x})\right) \cap A \subset C.$$
+		
+		Set $U = \bigcup\limits_{\mathbf{x} \in C} B_{\epsilon_{x}}(\mathbf{x})$. Then $U \cap A \subset C$ and it is clear that $U$ is open in $\mathbb{R}^n$.
+
+		$\forall$ $\mathbf{x} \in C$, $\mathbf{x} \in B_{\epsilon_x}(\mathbf{x})$ and $\mathbf{x} \in C \subset A$ $\Longrightarrow$ 
+		$$\mathbf{x} \in B_{\epsilon_x}(\mathbf{x}) \cap A \subset \bigcup\limits_{\mathbf{x} \in C} \left(B_{\epsilon_{x}}(\mathbf{x}) \cap A\right) = \left(\bigcup\limits_{\mathbf{x} \in C} B_{\epsilon_{x}}(\mathbf{x})\right) \cap A = U \cap A.$$
+		$\Longrightarrow$ $C \subset U \cap A$.
+
+		In conclusion, $C = U \cap A$ and $U$ is open in $\mathbb{R}^n$.
+		
+		\ding{173} Sufficiency:
+
+		$U$ is open in $\mathbb{R}^n$ $\Longrightarrow$ $\forall$ $\mathbf{x} \in U \supset C$, $\exists$ $\epsilon_x > 0$, s.t. $B_{\epsilon_x}(\mathbf{x}) \subset U$ $\Longrightarrow$ $B_{\epsilon_x}(\mathbf{x}) \cap A \subset U \cap A = C$. Thus $C \subset A$ is open in $A$.
+	\end{enumerate}
+\end{enumerate}
+\end{solution}
+
+\newpage	
+	\begin{exercise}[Projection ]
+		Let $\mathbf{A}\in\mathbb{R}^{m\times n}$ and $\mathbf{x} \in \mathbb{R}^m$. Define
+		\begin{align*}
+			\proj{\mathbf{x}}{\mathbf{A}} = \argmin_{\mathbf{z}\in\mathbb{R}^m}\,\{\|\mathbf{x}-\mathbf{z}\|_2: \mathbf{z}\in\mathcal{C}(\mathbf{A})\}.   
+		\end{align*}
+		We call $\proj{\mathbf{x}}{\mathbf{A}}$ the projection of the point $\mathbf{x}$ onto the column space of $\mathbf{A}$. 
+		\begin{enumerate}
+			\item Please show that $\mathbf{P}_{\mathbf{A}}(\mathbf{x})$ is unique for any $\mathbf{x} \in \mathbb{R}^m$. 
+			\item Let $\mathbf{v}_i \in \mathbb{R}^n$, $i=1,\ldots,d$ with $d\leq n$, which are linearly independent.
+			\begin{enumerate}
+				\item For any $\mathbf{w}\in \mathbb{R}^n$, please find $\proj{\mathbf{w}}{\mathbf{v}_1}$, which is the projection of $\mathbf{w}$ onto the subspace spanned by $\mathbf{v}_1$.  
+				\item Please show $\proj{\cdot}{\mathbf{v}_1}$ is a linear map, i.e.,
+				\begin{align*}
+					\proj{\alpha\mathbf{u}+\beta\mathbf{w}}{\mathbf{v}_1}=\alpha\proj{\mathbf{u}}{\mathbf{v}_1} + \beta \proj{\mathbf{w}}{\mathbf{v}_1},
+				\end{align*}
+				where $\alpha,\beta\in\mathbb{R}$ and $\mathbf{w}\in\mathbb{R}^n$.
+				\item Please find the projection matrix corresponding to the linear map $\proj{\cdot}{\mathbf{v}_1}$, i.e., find the matrix $\mathbf{H}_1\in\mathbb{R}^{n\times n}$ such that
+				\begin{align*}
+					\proj{\mathbf{w}}{\mathbf{v}_1}=\mathbf{H}_1\mathbf{w}.
+				\end{align*}
+				\item Let $\mathbf{V}=(\mathbf{v}_1,\ldots,\mathbf{v}_d)$. 
+				\begin{enumerate}
+					\item For any $\mathbf{w}\in \mathbb{R}^n$, please find $\proj{\mathbf{w}}{\mathbf{V}}$ and the corresponding projection matrix $\mathbf{H}$.
+					\item Please find $\mathbf{H}$ if we further assume that $\mathbf{v}_i^{\top}\mathbf{v}_j=0$, $\forall\,i\neq j$.
+				\end{enumerate}
+			\end{enumerate}
+			
+			\item  
+			\begin{enumerate}
+				\item Suppose that 
+				\begin{align*}
+					\mathbf{A} = \left[
+					\begin{matrix}
+						1 & 0\\
+						0 & 1
+					\end{matrix}
+					\right] .
+				\end{align*}
+				What are the coordinates of $\mathbf{P}_{\mathbf{A}}(\mathbf{x})$ with respect to the column vectors in $\mathbf{A}$ for any $\mathbf{x} \in \mathbb{R}^2$? Are the coordinates unique?
+				\item Suppose that
+				\begin{align*}
+					\mathbf{A} = \left[
+					\begin{matrix}
+						1 & 2\\
+						1 & 2
+					\end{matrix}
+					\right] .
+				\end{align*}
+				What are the coordinates of $\mathbf{P}_{\mathbf{A}}(\mathbf{x})$ with respect to the column vectors in $\mathbf{A}$ for any $\mathbf{x} \in \mathbb{R}^2$? Are the coordinates unique?
+			\end{enumerate}
+			
+			\item A matrix $\mathbf{P}$ is called a projection matrix if $\mathbf{P}\mathbf{x}$ is the projection of $\mathbf{x}$ onto $\mathcal{C}(\mathbf{P})$ for any $\mathbf{x}$.
+			\begin{enumerate}
+				\item Let $\lambda$ be the eigenvalue of $\mathbf{P}$. Show that $\lambda$ is either $1$ or $0$. (\emph{Hint: you may want to figure out what the eigenspaces corresponding to $\lambda=1$ and $\lambda=0$ are, respectively.})
+				\item Show that $\mathbf{P}$ is a projection matrix if and only if $\mathbf{P}^2 = \mathbf{P}$ and $\mathbf{P}$ is symmetric.
+			\end{enumerate}
+			
+			\item Let $\mathbf{B} \in \mathbb{R}^{m\times s}$ and $\mathcal{C}(\mathbf{B}) $ be its column space. Suppose that $\mathcal{C}(\mathbf{B})$ is a proper subspace of $ \mathcal{C}(\mathbf{A})$. 
+			Is $\proj{\mathbf{x}}{\mathbf{B}}$ the same as $\proj{\proj{\mathbf{x}}{\mathbf{A}}}{\mathbf{B}}$? Please show your claim rigorously.
+		\end{enumerate}
+	\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Projection}
+\begin{enumerate}
+	\item
+	\ding{172} Strict Convexity:
+
+	Define
+	$$f(\mathbf{z}) = \Vert \mathbf{x} - \mathbf{z} \Vert_2^2 = \Vert \mathbf{z} \Vert_2^2 + 2\langle \mathbf{x}, \mathbf{z} \rangle + \Vert \mathbf{x} \Vert_2^2$$
+	Then $\nabla^2 f(\mathbf{z}) = 2 \mathbf{I_m} > 0$ $\Longrightarrow$ $f$ is strictly convex. 
+	
+	The column space $\mathcal{C}(\mathbf{A})$ is convex $\Longrightarrow$ $\forall$ $\mathbf{a}, \mathbf{b} \in \mathcal{C}(\mathbf{A})$, $\forall$ $t \in (0,1)$, $t\mathbf{a} + (1-t)\mathbf{b} \in \mathcal{C}(\mathbf{A})$. 
+	
+	Suppose $\mathbf{z_1}, \mathbf{z_2} \in \mathcal{C}(\mathbf{A})$ are both minimizers of $f$ over $\mathcal{C}(\mathbf{A})$. Then according to the convexity of $f$,
+	\[
+	f(t\mathbf{z_1} + (1-t)\mathbf{z_2}) < tf(\mathbf{z_1}) + (1-t)f(\mathbf{z_2}) = f(\mathbf{z_1}) = f(\mathbf{z_2})
+	\]
+	contradicting the minimality of $\mathbf{z_1}$ and $\mathbf{z_2}$. Therefore, the minimizer $\proj{\mathbf{x}}{\mathbf{A}}$ is unique.
+
+	\ding{173} Orthogonality:
+	
+	Suppose $\mathbf{z_0}$ is a minimizer of $f$ over $\mathcal{C}(\mathbf{A})$. For any $\mathbf{y} \in \mathcal{C}(\mathbf{A})$ and $t \in \mathbb{R}$, define
+	$$\Phi(t) = \Vert \mathbf{x}-(\mathbf{z_0} + t\mathbf{y}) \Vert_2^2 = \Vert \mathbf{x} - \mathbf{z_0} \Vert_2^2 - 2t\langle\mathbf{x}-\mathbf{z_0}, \mathbf{y}\rangle + t^2 \Vert \mathbf{y} \Vert_2^2$$
+	Notice that $\mathbf{z_0} + t\mathbf{y} \in \mathcal{C}(\mathbf{A})$.
+
+	Since $\mathbf{z_0}$ minimizes $f$ over $\mathcal{C}(\mathbf{A})$, $\Phi(t)$ achieves its minimum at $t = 0$ $\Longrightarrow$ $\Phi'(0) = -2 \langle \mathbf{x} - \mathbf{z_0}, \mathbf{y} \rangle = 0$ $\Longrightarrow$ $\mathbf{x} - \mathbf{z_0} \perp \mathcal{C}(\mathbf{A})$, i.e., $\mathbf{x} - \mathbf{z_0} \in \mathcal{C}(\mathbf{A})^{\perp}$.
+
+	Fruthermore, if $\mathbf{x} - \mathbf{z_0} \perp \mathcal{C}(\mathbf{A})$, then for any $\mathbf{y} \in \mathcal{C}(\mathbf{A})$,
+	\[
+	\Vert \mathbf{x} - \mathbf{y} \Vert_2^2 = \Vert \mathbf{x} - \mathbf{z_0} + \mathbf{z_0} - \mathbf{y} \Vert_2^2 = \Vert \mathbf{x} - \mathbf{z_0} \Vert_2^2 + \Vert \mathbf{z_0} - \mathbf{y} \Vert_2^2 \geq \Vert \mathbf{x} - \mathbf{z_0} \Vert_2^2
+	\]
+	$\Longrightarrow$ $\mathbf{z_0}$ is a minimizer of $f$ over $\mathcal{C}(\mathbf{A})$.
+
+	If $\mathbf{z_1}$, $\mathbf{z_2}$ both satisfy $\mathbf{x} - \mathbf{z_i} \perp \mathcal{C}(\mathbf{A})$ ($i = 1,2$), then $\mathbf{z_1} - \mathbf{z_2} \in \mathcal{C}(\mathbf{A})$ and $\mathbf{z_1} - \mathbf{z_2} = (\mathbf{x} - \mathbf{z_2}) - (\mathbf{x} - \mathbf{z_1}) \perp \mathcal{C}(\mathbf{A})$ $\Longrightarrow$ $\mathbf{z_1} - \mathbf{z_2} = \mathbf{0}$ $\Longrightarrow$ $\mathbf{z_1} = \mathbf{z_2}$, i.e. the minimizer $\proj{\mathbf{x}}{\mathbf{A}}$ is unique.
+	\item 
+	\begin{enumerate}
+		\item 
+		\[
+		\proj{\mathbf{w}}{\mathbf{v}_1}
+		=
+		\argmin_{\substack{\alpha \mathbf{v_1} \\ \alpha \in \mathbb{R}, \mathbf{v}_1 \in \mathbb{R}^n}} \Vert \mathbf{w} - \alpha \mathbf{v}_1 \Vert_2
+		\]
+		\[
+		\frac{\mathrm{d}}{\mathrm{d} \alpha} \Vert \mathbf{w} - \alpha \mathbf{v}_1 \Vert_2^2
+		=
+		\frac{\mathrm{d}}{\mathrm{d} \alpha} (\mathbf{w} - \alpha \mathbf{v}_1)^{\top}(\mathbf{w} - \alpha \mathbf{v}_1)
+		=
+		-2\mathbf{v}_1^{\top}(\mathbf{w} - \alpha \mathbf{v}_1)
+		=
+		0
+		\]
+		\[
+		\Longrightarrow
+		\alpha^*
+		=
+		\frac{\mathbf{v_1^T}\mathbf{w}}{\mathbf{v_1^T}\mathbf{v_1}}
+		\Longrightarrow
+		\proj{\mathbf{w}}{\mathbf{v}_1}
+		=
+		\frac{\mathbf{v_1^T}\mathbf{w}}{\mathbf{v_1^T}\mathbf{v_1}}\mathbf{v}_1
+		\]
+		\item 
+		According to the result in (a),
+		\begin{align*}
+		\proj{\alpha \mathbf{u} + \beta \mathbf{w}}{\mathbf{v}_1}
+		=
+		\frac{\mathbf{v_1^T}(\alpha \mathbf{u} + \beta \mathbf{w})}{\mathbf{v_1^T}\mathbf{v_1}}\mathbf{v}_1
+		&=
+		\alpha \frac{\mathbf{v_1^T}\mathbf{u}}{\mathbf{v_1^T}\mathbf{v_1}}\mathbf{v}_1
+		+
+		\beta \frac{\mathbf{v_1^T}\mathbf{w}}{\mathbf{v_1^T}\mathbf{v_1}}\mathbf{v}_1\\
+		&=
+		\alpha \proj{\mathbf{u}}{\mathbf{v}_1} + \beta \proj{\mathbf{w}}{\mathbf{v}_1}
+		\end{align*}
+		\item 
+		\[
+		\proj{\mathbf{w}}{\mathbf{v}_1}
+		=
+		\frac{\mathbf{v_1^T}\mathbf{w}}{\mathbf{v_1^T}\mathbf{v_1}}\mathbf{v}_1
+		=
+		\left(\frac{\mathbf{v_1}\mathbf{v_1^T}}{\mathbf{v_1^T}\mathbf{v_1}}\right)\mathbf{w}
+		:=
+		\mathbf{H_1} \mathbf{w}
+		\]
+		\item 
+		\begin{enumerate}
+			\item 
+			\[\proj{\mathbf{w}}{\mathbf{V}}
+			=
+			\argmin_{\substack{\mathbf{Vy} \\ \mathbf{y} \in \mathbb{R}^d, \mathbf{V} \in \mathbb{R}^{n \times d}}} \Vert \mathbf{w} - \mathbf{Vy} \Vert_2
+			\]
+			\[
+			\frac{\mathrm{d}}{\mathrm{d} \mathbf{y}} \Vert \mathbf{w} - \mathbf{Vy} \Vert_2^2
+			=
+			\frac{\mathrm{d}}{\mathrm{d} \mathbf{y}} (\mathbf{w} - \mathbf{Vy})^{\top}(\mathbf{w} - \mathbf{Vy})
+			=
+			-2\mathbf{V}^{\top}(\mathbf{w} - \mathbf{Vy})
+			=
+			0
+			\]
+			$\mathbf{v_i}$, $i=1,\ldots,d$ are linearly independent $\Longrightarrow$ $\mathbf{V}$ has full column rank $\Longrightarrow$ $\mathbf{V}^{\top}\mathbf{V}$ is invertible.
+			\[
+			\Longrightarrow
+			\mathbf{y}^*
+			=
+			(\mathbf{V}^{\top}\mathbf{V})^{-1}\mathbf{V}^{\top}\mathbf{w}
+			\Longrightarrow
+			\proj{\mathbf{w}}{\mathbf{V}}
+			=
+			\mathbf{V}(\mathbf{V}^{\top}\mathbf{V})^{-1}\mathbf{V}^{\top}\mathbf{w}
+			\]
+			\[
+			\Longrightarrow
+			\mathbf{H}
+			=
+			\mathbf{V}(\mathbf{V}^{\top}\mathbf{V})^{-1}\mathbf{V}^{\top}
+			\]
+			\item 
+			\begin{align*}
+			\mathbf{v_i^T}\mathbf{v_j}
+			=
+			0, \forall i \neq j
+			&\Longrightarrow
+			\mathbf{V}^{\top}\mathbf{V}
+			=
+			\left[\begin{matrix}
+			\mathbf{v_1^T}\mathbf{v_1} & 0 & \cdots & 0\\
+			0 & \mathbf{v_2^T}\mathbf{v_2} & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & \cdots & \mathbf{v_d^T}\mathbf{v_d}
+			\end{matrix}\right]\\
+			&\Longrightarrow
+			(\mathbf{V}^{\top}\mathbf{V})^{-1}
+			=
+			\left[\begin{matrix}
+			\frac{1}{\mathbf{v_1^T}\mathbf{v_1}} & 0 & \cdots & 0\\
+			0 & \frac{1}{\mathbf{v_2^T}\mathbf{v_2}} & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & \cdots & \frac{1}{\mathbf{v_d^T}\mathbf{v_d}}
+			\end{matrix}\right]\\
+			&\Longrightarrow
+			\mathbf{H}
+			=
+			\sum\limits_{i=1}^{d} \frac{\mathbf{v_i}\mathbf{v_i^T}}{\mathbf{v_i^T}\mathbf{v_i}}
+			\end{align*}
+		\end{enumerate}
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item 
+		\[
+		\mathbf{A} = \left[
+		\begin{matrix}
+			1 & 0\\
+			0 & 1
+		\end{matrix}
+		\right]
+		\Longrightarrow
+		\mathbf{x}
+		\in
+		\mathcal{C}(\mathbf{A}) = \mathbb{R}^2
+		\Longrightarrow
+		\proj{\mathbf{x}}{\mathbf{A}} 
+		= 
+		\mathbf{x}
+		=
+		\mathbf{A}
+		\cdot
+		\mathbf{x}
+		\]
+		The coordinates of $\mathbf{P_A}(\mathbf{x})$ with respect to the column vectors in $\mathbf{A}$ are unique and equal to $\mathbf{x}$ itself.
+		\item
+		\[
+		\mathbf{A} = \left[
+		\begin{matrix}
+			1 & 2\\
+			1 & 2
+		\end{matrix}
+		\right]
+		\Longrightarrow
+		\mathcal{C}(\mathbf{A}) = \{\alpha (1,1)^T : \alpha \in \mathbb{R}\}
+		\]
+		\[
+		\proj{\mathbf{x}}{\mathbf{A}}
+		=
+		\argmin_{\substack{\alpha (1,1)^T \\ \alpha \in \mathbb{R}}} \Vert \mathbf{x} - \alpha (1,1)^T \Vert_2
+		\]
+		\[
+		\xRightarrow{2.(a)}
+		\proj{\mathbf{x}}{\mathbf{A}}
+		=
+		\frac{(1,1)\mathbf{x}}{(1,1)(1,1)^T}(1,1)^T
+		=
+		\frac{x_1 + x_2}{2}(1,1)^T
+		=
+		\mathbf{A}
+		\cdot
+		\left(c_1, c_2\right)^T
+		\]
+		$\Longrightarrow$ The set of all coordinates of $\mathbf{P_A}(\mathbf{x})$ with respect to the column vectors in $\mathbf{A}$ is the affine line:
+		\[
+		\left\{(c_1, c_2)^T \in \mathbb{R}^2 : c_1 + 2c_2 = \frac{x_1 + x_2}{2}\right\}
+		\]
+		Thus the coordinates are not unique.	
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item 
+		Let $\lambda$ be an eigenvalue of $\mathbf{P}$ and $\mathbf{v}$ be the corresponding eigenvector. Then $\mathbf{P}\mathbf{v} = \lambda \mathbf{v}$. Since $\mathbf{P}$ is a projection matrix, $\mathbf{P}\mathbf{v}$ is the projection of $\mathbf{v}$ onto $\mathcal{C}(\mathbf{P})$ $\Longrightarrow$ $\mathbf{v} = \mathbf{P}\mathbf{v} + \left(\mathbf{v} - \mathbf{P}\mathbf{v}\right)$, where $\mathbf{P}\mathbf{v} \in \mathcal{C}(\mathbf{P})$ and $\mathbf{v} - \mathbf{P}\mathbf{v} \in \mathcal{C}(\mathbf{P})^{\perp}$.
+		\[
+		\Longrightarrow
+		\Vert \mathbf{v} \Vert_2^2
+		=
+		\Vert \mathbf{Pv} \Vert_2^2
+		+
+		\Vert \mathbf{v} - \mathbf{Pv} \Vert_2^2
+		\xRightarrow{\mathbf{Pv} = \lambda \mathbf{v}}
+		\left(\lambda^2-\lambda\right)\Vert \mathbf{v} \Vert_2^2
+		=
+		0
+		\Longrightarrow
+		\lambda \in \{0, 1\}
+		\]
+		\item
+		\ding{172} Necessity:
+
+		$\forall$ $\mathbf{x} \in \mathbb{R}^m$, $\mathbf{Px} \in \mathcal{C}(\mathbf{P})$. We need to prove that $\mathbf{x} - \mathbf{Px} \in \mathcal{C}(\mathbf{P})^{\perp}$.
+
+		$\forall$ $\mathbf{y} \in \mathcal{C}(\mathbf{P})$, $\exists$ $\mathbf{z} \in \mathbb{R}^m$, s.t. $\mathbf{y} = \mathbf{Pz}$. Then
+		\begin{align*}
+		\langle \mathbf{x} - \mathbf{Px}, \mathbf{y} \rangle
+		=
+		\langle \mathbf{x} - \mathbf{Px}, \mathbf{Pz} \rangle
+		&=
+		\langle \mathbf{P^T}(\mathbf{x} - \mathbf{Px}), \mathbf{z} \rangle\\
+		&\xlongequal{\mathbf{P^T} = \mathbf{P}}
+		\langle \mathbf{P}(\mathbf{x} - \mathbf{Px}), \mathbf{z} \rangle\\
+		&\xlongequal{\mathbf{P^2} = \mathbf{P}}
+		\langle \mathbf{Px} - \mathbf{P}^2\mathbf{x}, \mathbf{z} \rangle
+		=
+		0
+		\end{align*}
+		$\Longrightarrow$ $\mathbf{x} - \mathbf{Px} \in \mathcal{C}(\mathbf{P})^{\perp}$ $\Longrightarrow$ $\mathbf{P}$ is a projection matrix.
+
+		\ding{173} Sufficiency:
+
+		$\mathbf{P}$ is a projection matrix $\Longrightarrow$ $\forall$ $\mathbf{x} \in \mathbb{R}^m$, $\mathbf{Px} \in \mathcal{C}(\mathbf{P})$
+		
+		$\Longrightarrow$ $\mathbf{P}(\mathbf{Px}) = \argmin_{\mathbf{z} \in \mathcal{C}(\mathbf{P})} \Vert \mathbf{Px} - \mathbf{z} \Vert_2 = \mathbf{Px}$ $\Longrightarrow$ $\mathbf{P^2} = \mathbf{P}$.
+
+		$\mathbf{P}$ is a projection matrix $\Longrightarrow$ $\forall$ $\mathbf{x}, \mathbf{y} \in \mathbb{R}^m$, $\mathbf{x} = \mathbf{Px} + (\mathbf{x-Px})$, where $\mathbf{Px} \in \mathcal{C}(\mathbf{P})$ and $\mathbf{x-Px} \in \mathcal{C}(\mathbf{P})^{\perp}$. Since $\mathbf{Py} \in \mathcal{C}(\mathbf{P})$, we have
+		\[
+		\langle \mathbf{Px}, \mathbf{y} - \mathbf{Py} \rangle
+		=
+		0
+		\Longrightarrow
+		\langle \mathbf{Px}, \mathbf{y} \rangle
+		=
+		\langle \mathbf{Px}, \mathbf{Py} \rangle
+		=
+		\langle \mathbf{x}, \mathbf{Py} \rangle
+		=
+		\langle \mathbf{P^T x}, \mathbf{y} \rangle
+		\]
+		$\Longrightarrow$ $\mathbf{P^T} = \mathbf{P}$.
+	\end{enumerate}
+	\item $\forall$ $\mathbf{x} \in \mathbb{R}^m$,
+	\[
+	\mathcal{C}(\mathbf{B}) \text{ is a proper subspace of } \mathcal{C}(\mathbf{A})
+	\Longrightarrow
+	\forall \mathbf{z}\in\mathcal{C}(\mathbf{P}), z\in\mathcal{C}(\mathbf{A})
+	\Longrightarrow
+	\proj{\mathbf{x}}{\mathbf{A}} - \mathbf{z} \in \mathcal{C}(\mathbf{A})
+	\]
+	\begin{align*}
+	\mathbf{x} - \proj{\mathbf{x}}{\mathbf{A}} \in \mathcal{C}(\mathbf{A})^{\perp}
+	\Longrightarrow
+	\Vert \mathbf{x} - z \Vert_2^2
+	&=
+	\Vert (\proj{\mathbf{x}}{\mathbf{A}} - \mathbf{z}) + \left(\mathbf{x}-\proj{\mathbf{x}}{\mathbf{A}}\right) \Vert_2^2\\
+	&=
+	\Vert \proj{\mathbf{x}}{\mathbf{A}} - \mathbf{z} \Vert_2^2
+	+
+	\Vert \mathbf{x}-\proj{\mathbf{x}}{\mathbf{A}} \Vert_2^2
+	\end{align*}
+	\[
+	\Longrightarrow
+	\argmin_{\mathbf{z} \in \mathcal{C}(\mathbf{B})} \Vert \mathbf{x} - \mathbf{z} \Vert_2
+	=
+	\argmin_{\mathbf{z} \in \mathcal{C}(\mathbf{B})} \Vert \proj{\mathbf{x}}{\mathbf{A}} - \mathbf{z} \Vert_2
+	\Longrightarrow
+	\proj{\mathbf{x}}{\mathbf{B}}
+	=
+	\proj{\proj{\mathbf{x}}{\mathbf{A}}}{\mathbf{B}}
+	\]
+\end{enumerate}
+\end{solution}
+
+\newpage
+	\begin{exercise}[Derivatives with matrices]
+	
+	\begin{definition}[Differentiability]\cite{Tao}\label{def:diff}
+	    Let $f:\mathbb{R}^n\rightarrow\mathbb{R}^m$ be a function, $\mathbf{x}_0\in\mathbb{R}^n$ be a point, and let $L:\mathbb{R}^n\rightarrow\mathbb{R}^m$ be a linear transformation. We say that $f$ is \emph{differentiable at $\mathbf{x}_0$ with derivative $L$} if we have
+	    \begin{align*}
+	        \lim_{\mathbf{x}\rightarrow\mathbf{x}_0;\mathbf{x}\neq\mathbf{x}_0}\frac{\|f(\mathbf{x})-f(\mathbf{x}_0)-L(\mathbf{x}-\mathbf{x}_0)\|_2}{\|\mathbf{x}-\mathbf{x}_0\|_2}=0.
+	    \end{align*}
+	    We denote this derivative by $f'(\mathbf{x}_0)$.
+	\end{definition}
+		\begin{enumerate}
+			\item 	Let $\mathbf{x},\mathbf{a}\in \mathbb{R}^n$ and $\mathbf{y}\in \mathbb{R}^m$. Consider the functions as follows. Please show that they are differentiable and find $f'(\mathbf{x})$.
+			\begin{enumerate}
+				\item[(a)] $f(\mathbf{x}) = \mathbf{a}^{\top}\mathbf{x}$.
+				\item[(b)] $f(\mathbf{x}) = \mathbf{x}^{\top}\mathbf{x}$.
+				
+			\end{enumerate}
+            \item Consider a differentiable function $f:\mathbb{R}^n\to\mathbb{R}^m$. The \textbf{Jacobian Matrix with denominator layout} is defined by:
+            \begin{align*}
+                \frac{\partial f}{\partial \mathbf{x}} = \left[
+                \begin{matrix}
+                    \displaystyle \frac{\partial f_1 (\mathbf{x})}{\partial x_1} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_1} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_1} \\
+                    \displaystyle\frac{\partial f_1 (\mathbf{x})}{\partial x_2} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_2} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_2} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \displaystyle \frac{\partial f_1 (\mathbf{x})}{\partial x_n} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_n} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_n}
+                \end{matrix}\right].
+            \end{align*}
+            Please show that
+            \begin{align*}
+                L(\mathbf{x} - \mathbf{x}_0) = \left( \frac{\partial f}{\partial \mathbf{x}} \right)^\top (\mathbf{x} - \mathbf{x}_0),
+            \end{align*}
+            where $L:\mathbb{R}^n\to\mathbb{R}^m$ is the derivative in Definition \ref{def:diff}.
+			\item Please follow Definition \ref{def:diff} and give the definition of the differentiability of the functions $f:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}$.
+			\item Let $f(\mathbf{X})=\tr(\mathbf{A}^{\top}\mathbf{X})$, where $\mathbf{A},\mathbf{X}\in\mathbb{R}^{n\times m}$, and $\tr(\cdot)$ denotes the trace of a matrix. Please discuss the differentiability of $f$ and find $f'$ if it is differentiable.
+			\item (Optional)~ Let $f(\mathbf{X}) = \det(\mathbf{X})$, where $\det(\mathbf{X})$ is the determinant of $\mathbf{X} \in \mathbb{R}^{n \times n}$. Please discuss the differentiability of $f$ rigorously according to your definition in the last part. If $f$ is differentiable, please find $f'(\mathbf{X})$.
+			\item (Optional) ~ Let $\mathbf{S}_{++}^n$ be the space of all positive definite $n\times n$ matrices. Please show the function $f: \mathbf{S}_{++}^{n} \rightarrow \mathbb{R}$ defined by $f(\mathbf{X})=\tr{\mathbf{X}^{-1}}$ is differentiable on $ \mathbf{S}_{++}^{n} $. (Hint: Expand the expression $(\mathbf{X}+t\mathbf{Y})^{-1}$ as a power series.)
+		\end{enumerate}
+	\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Derivatives with matrices}
+\begin{enumerate}
+	\item
+	\begin{enumerate}
+		\item 
+		Let $L(\mathbf{h}) = \mathbf{a}^{\top}\mathbf{h}$, $\forall \mathbf{h} \in \mathbb{R}^n$, then $L$ is a linear transformation from $\mathbb{R}^n$ to $\mathbb{R}$.
+
+		For any $\mathbf{x}_0 \in \mathbb{R}^n$ and $\mathbf{x} \in \mathbb{R}^n$, $\mathbf{x} \neq \mathbf{x}_0$,
+		\begin{align*}
+		\frac{|f(\mathbf{x}) - f(\mathbf{x}_0) - L(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2}
+		&=
+		\frac{|\mathbf{a}^{\top}\mathbf{x} - \mathbf{a}^{\top}\mathbf{x}_0 - \mathbf{a}^{\top}(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2}\\
+		&=
+		\frac{0}{\|\mathbf{x} - \mathbf{x}_0\|_2}
+		=
+		0
+		\end{align*}
+		$\Longrightarrow$ $f$ is differentiable at $\mathbf{x}_0$ with derivative $L$ and $f'(\mathbf{x}) = \mathbf{a}^{\top}$.
+		\item 
+		Let $L(\mathbf{h}) = 2\mathbf{x}_0^{\top}\mathbf{h}$, $\forall \mathbf{h} \in \mathbb{R}^n$, then $L$ is a linear transformation from $\mathbb{R}^n$ to $\mathbb{R}$.
+
+		For any $\mathbf{x}_0 \in \mathbb{R}^n$ and $\mathbf{x} \in \mathbb{R}^n$, $\mathbf{x} \neq \mathbf{x}_0$,
+		\begin{align*}
+		\frac{|f(\mathbf{x}) - f(\mathbf{x}_0) - L(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2}
+		&=
+		\frac{|\mathbf{x}^{\top}\mathbf{x} - \mathbf{x}_0^{\top}\mathbf{x}_0 - 2\mathbf{x}_0^{\top}(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2}\\
+		&=
+		\frac{|(\mathbf{x} - \mathbf{x}_0)^{\top}(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2}\\
+		&=
+		\frac{\|\mathbf{x} - \mathbf{x}_0\|_2^2}{\|\mathbf{x} - \mathbf{x}_0\|_2}\\
+		&=
+		\|\mathbf{x} - \mathbf{x}_0\|_2
+		\end{align*}
+		$\Longrightarrow$ $\lim_{\mathbf{x}\rightarrow\mathbf{x}_0;\mathbf{x}\neq\mathbf{x}_0}\frac{|f(\mathbf{x}) - f(\mathbf{x}_0) - L(\mathbf{x} - \mathbf{x}_0)|}{\|\mathbf{x} - \mathbf{x}_0\|_2} = 0$ $\Longrightarrow$ $f$ is differentiable at $\mathbf{x}_0$ with derivative $L$ and $f'(\mathbf{x}) = 2\mathbf{x}^{\top}$.
+
+		\textcolor{blue}{Key point: Observe the linear term of $\mathbf{x} - \mathbf{x_0}$ in $f(\mathbf{x}) - f(\mathbf{x_0})$.}
+	\end{enumerate}
+	\item
+	Denote $\{\mathbf{e_1}, \cdots, \mathbf{e_n}\}$ as the standard basis of $\mathbb{R}^n$.
+
+	For a fixed $i \in \{1, \cdots, n\}$, we have
+	\[
+	\lim\limits_{t \to 0} \frac{f(\mathbf{x_0} + t \mathbf{e_i}) - f(\mathbf{x_0})}{t} = \left(\frac{\partial f_1}{\partial x_i}(\mathbf{x_0}), \frac{\partial f_2}{\partial x_i}(\mathbf{x_0}), \cdots, \frac{\partial f_m}{\partial x_i}(\mathbf{x_0})\right)^{\top} = L \mathbf{e_i}
+	\]
+	which is the $i$-th column of
+	\begin{align*}
+                \frac{\partial f}{\partial \mathbf{x}} = \left[
+                \begin{matrix}
+                    \displaystyle \frac{\partial f_1 (\mathbf{x})}{\partial x_1} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_1} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_1} \\
+                    \displaystyle\frac{\partial f_1 (\mathbf{x})}{\partial x_2} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_2} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_2} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \displaystyle \frac{\partial f_1 (\mathbf{x})}{\partial x_n} & \displaystyle\frac{\partial f_2 (\mathbf{x})}{\partial x_n} & \cdots & \displaystyle\frac{\partial f_m (\mathbf{x})}{\partial x_n}
+                \end{matrix}\right].
+            \end{align*}
+	For any $\mathbf{h} = \sum\limits_{i=1}^{n}h_i \mathbf{e_i}$, we have
+	\[
+	L\mathbf{h}
+	=
+	L\left(\sum\limits_{i=1}^{n}h_i \mathbf{e_i}\right)
+	=
+	\sum\limits_{i=1}^{n}h_i L\mathbf{e_i}
+	=
+	\sum\limits_{i=1}^{n}h_i \left[\left(\frac{\partial f}{\partial \mathbf{x}}(\mathbf{x_0})\right)^{\top}\right]_{\cdot, i}
+	=
+	\left(\frac{\partial f}{\partial \mathbf{x}}(\mathbf{x_0})\right)^{\top}\mathbf{h}
+	\]
+	Let $\mathbf{h} = \mathbf{x} - \mathbf{x_0}$, we conclude
+	\[
+	L(\mathbf{x} - \mathbf{x}_0) = \left( \frac{\partial f}{\partial \mathbf{x}} \right)^\top (\mathbf{x} - \mathbf{x}_0).
+	\]
+	\item
+	Let $f:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}$ be a function, $\mathbf{X}_0\in\mathbb{R}^{n\times n}$ be a point, and let $L:\mathbb{R}^{n\times n}\rightarrow\mathbb{R}$ be a linear transformation. We say that $f$ is \emph{differentiable at $\mathbf{X}_0$ with derivative $L$} if we have
+	\begin{align*}
+	    \lim_{\mathbf{X}\rightarrow\mathbf{X}_0;\mathbf{X}\neq\mathbf{X}_0}\frac{|f(\mathbf{X})-f(\mathbf{X}_0)-L(\mathbf{X}-\mathbf{X}_0)|}{\|\mathbf{X}-\mathbf{X}_0\|_2}=0.
+	\end{align*}
+	We denote this derivative by $f'(\mathbf{X}_0)$.
+	\item
+	$\forall$ $\alpha$, $\beta > 0$ and $\mathbf{X}$, $\mathbf{Y} \in \mathbb{R}^{n\times m}$,
+	\[
+	f(\alpha \mathbf{X} + \beta \mathbf{Y})
+	=
+	\tr\left(\mathbf{A}^{\top}\left(\alpha \mathbf{X} + \beta \mathbf{Y}\right)\right)
+	=
+	\alpha \tr\left(\mathbf{A}^{\top} \mathbf{X}\right) + \beta \tr\left(\mathbf{A}^{\top} \mathbf{Y}\right)
+	=
+	\alpha f(\mathbf{X}) + \beta f(\mathbf{Y})
+	\]
+	$\Longrightarrow$ $f$ is linear $\Longrightarrow$ let $L(\mathbf{H}) = \tr(\mathbf{A}^{\top}\mathbf{H})$. It is clear that $f(\mathbf{X}) - f(\mathbf{X_0}) - L(\mathbf{X} - \mathbf{X_0}) = 0$ $\Longrightarrow$ $f$ is differentiable and $f^{\prime}(\mathbf{X}) = \tr(\mathbf{A}^{\top}\mathbf{X})$.
+	\item
+	\item 
+\end{enumerate}
+\end{solution}
+
+	\newpage
+
+\begin{exercise}[Linear Space]
+\begin{enumerate}
+    \item Let $P_n[x]$ be the set of all polynomials on $\mathbb{R}$ with degree at most $n$. Show that $P_n[x]$ is a linear space.
+
+    \item A real symmetric matrix $\mathbf{A} \in \mathbb{R}^{n\times n}$ is called \emph{positive definite}, written $\mathbf A \succ \mathbf 0$, if for all $\mathbf x \in \mathbb{R}^n, \mathbf x\neq \mathbf 0$,
+    \[
+    \mathbf x^\top\mathbf A \mathbf x > 0.
+    \]
+    Let the set of all positive definite matrices be
+    \[
+    \mathbb S^n_{++} := \Big\{\mathbf A \in \mathbb R^{n\times n} : \mathbf A = \mathbf A^\top,\;\mathbf x^\top \mathbf A \mathbf x > 0\ \text{for all }\mathbf x\neq \mathbf 0\Big\}.
+    \]
+    Is $\mathbb S^n_{++}$ a linear subspace of $\mathbb R^{n\times n}$? Please show your conclusion in detail.
+    
+\end{enumerate}
+    
+\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Linear Space}
+	\begin{enumerate}
+		\item
+		$\forall$ $p(x) = \sum\limits_{k=0}^{m} a_k x^k$, $q(x) = \sum\limits_{k=0}^{m} b_k x^k$, $r(x) = \sum\limits_{k=0}^{m} c_k x^k$, $a_k$, $b_k$, $c_k\in \mathbb{R}$, $0 \leq k \leq n$, $\forall$ $\alpha$, $\beta \in \mathbb{R}$:
+		\begin{enumerate}
+			\item Closure under addition:
+			\[
+			p(x) + q(x) = \sum\limits_{k=0}^{m} (a_k + b_k) x^k \in P_n[x]
+			\]
+			\item Associativity of addition:
+			\[
+			(p + q) + r = \sum\limits_{k=0}^{m} [(a_k + b_k) + c_k] x^k = \sum\limits_{k=0}^{m} [a_k + (b_k + c_k)] x^k = p + (q + r)
+			\]
+			\item Commutativity of addition:
+			\[
+			p(x) + q(x) = \sum\limits_{k=0}^{m} (a_k + b_k) x^k = \sum\limits_{k=0}^{m} (b_k + a_k) x^k = q(x) + p(x)
+			\]
+			\item Additive identity:
+			\[
+			0\in P_n[x] \text{ and } p + 0 = 0 + p
+			\]
+			\item Additive Inverse:
+			\[
+			-p = \sum\limits_{k=0}^{m} (-a_k) x^k \in P_n[x] \text{ and } p + (-p) = 0
+			\]
+			\item Closure under scalar multiplication:
+			\[
+			\alpha p = \sum\limits_{k=0}^{m} (\alpha a_k) x^k \in P_n[x]
+			\]
+			\item Distributivity of scalar over vector addition:
+			\[
+			\alpha (p + q) = \sum\limits_{k=0}^{m} [\alpha (a_k + b_k)] x^k = \sum\limits_{k=0}^{m} (\alpha a_k + \alpha b_k) x^k = \alpha p + \alpha q
+			\]
+			\item Distributivity of scalar addition over vector:
+			\[
+			(\alpha + \beta) p = \sum\limits_{k=0}^{m} [(\alpha + \beta) a_k] x^k = \sum\limits_{k=0}^{m} (\alpha a_k + \alpha b_k) x^k = \alpha p + \beta p
+			\]
+			\item Compatibility of scalar multiplication:
+			\[
+			\alpha (\beta p) = \sum\limits_{k=0}^{m} [\alpha (\beta a_k)] x^k = \sum\limits_{k=0}^{m} [(\alpha \beta) a_k] x^k = (\alpha \beta) p
+			\]
+			\item Unit scalar:
+			\[
+			1\in P_n[x] \text{ and } 1 \cdot p = p \cdot 1 = p
+			\]
+		\end{enumerate}
+		\item No.
+		\begin{enumerate}
+			\item 
+			\[
+			\forall \mathbf{x} \in \mathbb{R}^n, \mathbf{x^{\top}} \mathbf{0} \mathbf{x} = 0
+			\Longrightarrow
+			\mathbf{0} \not\in \mathbb{S}_{++}^{n}
+			\]
+			\item 
+			\[
+			\forall \alpha < 0, \mathbf{A} \in \mathbb{S}_{++}^{n},
+			\mathbf{x^{\top}} (\alpha A) \mathbf{x}
+			<
+			0
+			\Longrightarrow
+			\alpha \mathbf{A} \not\in \mathbb{S}_{++}^{n}
+			\]
+		\end{enumerate}
+	\end{enumerate}
+\end{solution}
+
+\newpage
+	\begin{exercise}[Basis and Coordinates]
+		Suppose that $\{\mathbf{a}_1, \mathbf{a}_2,\dots,\mathbf{a}_n\}$ is a basis of an $n$-dimensional vector space $V$.
+		\begin{enumerate}
+			\item Show that $\{\lambda_1 \mathbf{a}_1, \lambda_2 \mathbf{a}_2, \dots, \lambda_n\mathbf{a}_n\}$ is also a basis of $V$ for nonzero scalars $\lambda_1,\lambda_2, \dots, \lambda_n$.
+			\item Let $V =\mathbb{R}^n$, $\mathbf{A}=(\mathbf{a}_1,\mathbf{a}_2, \dots, \mathbf{a}_n)\in\mathbb{R}^{n\times n}$ and $\mathbf{B}=(\mathbf{b}_1,\mathbf{b}_2,\dots, \mathbf{b}_n)\in\mathbb{R}^{n\times n}$. $(\mathbf{b}_1,\mathbf{b}_2,\dots, \mathbf{b}_n) = (\mathbf{a}_1,\mathbf{a}_2, \dots, \mathbf{a}_n)\mathbf{P}$, where $\mathbf{P}\in \mathbb{R}^{n\times n}$ and $\mathbf{b}_i\in \mathbb{R}^n$, for any $i\in\{1,\dots,n\}$. Show that $\{ \mathbf{b}_1, \mathbf{b}_2, \dots, \mathbf{b}_n\}$ is also a basis of $V$ for any invertible  matrix $\mathbf{P}$.
+			\item Suppose that the coordinate of a vector $\mathbf{v}$ under the basis $\{\mathbf{a}_1,  \mathbf{a}_2,\dots,\mathbf{a}_n\}$ is $\mathbf{x}=(x_1,x_2,\dots x_n)$.
+			\begin{enumerate}
+				\item What is the coordinate of $\mathbf{v}$ under $\{\lambda_1 \mathbf{a}_1, \lambda_2 \mathbf{a}_2, \dots, \lambda_n\mathbf{a}_n\}$?
+				
+				\item What are the coordinates of $\mathbf{w} = \mathbf{a}_1+\dots + \mathbf{a}_n$ under $\{\mathbf{a}_1, \mathbf{a}_2,\dots,\mathbf{a}_n\}$ and $\{\lambda_1 \mathbf{a}_1, \lambda_2 \mathbf{a}_2, \dots, \lambda_n\mathbf{a}_n\}$? Note that  $\lambda_i \neq 0$ for any $i\in \{1,\dots,n\}$.
+			\end{enumerate}
+
+                \item Suppose $\mathbf{a}=(1,0)$, $\mathbf{b}=(0,1)$ and $\mathbf{c}=(-1,0)$ are three unit vectors in two-dimensional space. $\mathbf{v}=(x,y)$ is a vector in two-dimensional space.
+                \begin{enumerate}
+                    \item Please find the coordinate of $\mathbf{v}$ under basis $\{\mathbf{c}, \mathbf{b}\}$? Is the coordinate unique?
+                    \item Please find all the possible combination coefficients of $\mathbf{v}$ under vectors $\mathbf{a}$, $\mathbf{b}$ and $\mathbf{c}$, i.e., $\mathbf{v} = x'\mathbf{a}+y'\mathbf{b}+z'\mathbf{c}$. 
+                    \item (\textbf{Bonus}) Each set of combination coefficients $(x',y',z')$ in (b) forms a vector in $\mathbb{R}^3$. Please find the combination coefficients with minimum $\ell_1$-norm.
+                \end{enumerate}
+
+		\end{enumerate}
+	\end{exercise}	
+
+	\newpage
+
+	\begin{solution}\textbf{Basis and Coordinates}
+		\begin{enumerate}
+			\item 
+			Suppose $\sum\limits_{i = 1}^{n} c_i (\lambda_i \mathbf{a_i}) = \sum\limits_{i = 1}^{n} (c_i \lambda_i) \mathbf{a_i} = 0$. Because $\{\mathbf{a_i}\}_{i = 1}^{n}$ is linear independent, we must have $c_i \lambda_i = 0$ $\xRightarrow{\lambda_i \neq 0}$ $c_i = 0$ for all $i$, i.e., $\{\lambda_i \mathbf{a_i}\}$ is linear independent.
+
+			$\forall$ $\mathbf{v} \in \mathbf{V}$, $\{\mathbf{a_i}\}$ is a basis $\Longrightarrow$ there exists unique scalars $\{\alpha_i\}$ such that
+			\[
+			\mathbf{v}
+			=
+			\sum\limits_{i = 1}^{n}\alpha_i \mathbf{a_i}
+			=
+			\sum\limits_{i = 1}^{n}\left(\frac{\alpha_i}{\lambda_i}\right)(\lambda_i \alpha_i).
+			\]
+			Thus $\mathbf{v}$ is a linear combination fo the vectors in $\{\lambda_i \mathbf{a_i}\}$.
+
+			In conclusion, $\{\lambda_i \mathbf{a_i}\}$ is also a basis of an $n$-dimensional vector space $V$.
+			\item 
+			\ding{172}
+			$|\mathbf{B}| = |\mathbf{AP}| = |\mathbf{A}|\cdot|\mathbf{P}| \neq 0$ $\Longrightarrow$ $\mathbf{B}$ is invertible $\Longrightarrow$ the columns $\mathbf{b_i}$, $1 \leq i \leq n$ are linearly independent. Being $n$ independent vectors in $\mathbb{R}^n$, they span $\mathbb{R}^n$, i.e., $\{\mathbf{b_i}\}$, $1 \leq i \leq n$ is also a basis of $V$ for any invertible  matrix $\mathbf{P}$.
+
+			\ding{173}
+			$\forall$ $\mathbf{x} \in \mathbb{R}^n$, there exists a unique $\mathbf{c} \in \mathbb{R}^n$ with $\mathbf{x} = \mathbf{A}\mathbf{c}$ $\xRightarrow{\mathbf{P} \text{ is invertible}}$ $\mathbf{x} = \mathbf{A}\mathbf{c} = \mathbf{A} \mathbf{P} \mathbf{P}^{-1} \mathbf{c} = \mathbf{B} \left(\mathbf{P}^{-1} \mathbf{c}\right)$ $\Longrightarrow$ $\{\mathbf{b_i}\}$, $1 \leq i \leq n$ is also a basis of $V$ for any invertible  matrix $\mathbf{P}$.
+			\item 
+			\begin{enumerate}
+				\item 
+				Set $\mathbf{y} = (y_1, y_2, \cdots, y_n)$ as the coordinate of $\mathbf{v}$ under $\{\lambda_i \mathbf{a_i}\}$, $1 \leq i \leq n$.
+				\[
+				\mathbf{v}
+				=
+				\sum\limits_{i = 1}^{n} y_i (\lambda_i \mathbf{a_i}) 
+				=
+				\sum\limits_{i = 1}^{n} x_i \mathbf{a_i}
+				\Longrightarrow
+				y_i
+				=
+				\frac{x_i}{\lambda_i}
+				\]
+				Therefore, the coordinate of $\mathbf{v}$ under $\{\lambda_i \mathbf{a_i}\}$, $1 \leq i \leq n$ is $\mathbf{y} = \left(\frac{x_1}{\lambda_1}, \frac{x_2}{\lambda_2}, \cdots, \frac{x_n}{\lambda_n}\right)$.
+				\item 
+				It is clear that $\mathbf{x} = (1, 1, \cdots, 1)^{\top}$ and $\mathbf{y} = \left(\frac{1}{\lambda_1}, \frac{1}{\lambda_2}, \cdots, \frac{1}{\lambda_n}\right)$.
+			\end{enumerate}
+			\item 
+			\begin{enumerate}
+				\item 
+				It is clear that the coordinate of $\mathbf{v}$ under basis $\{\mathbf{c}, \mathbf{b}\}$ is $(-x, y)$. And the coordinate is unique because $\{\mathbf{c}, \mathbf{b}\}$ is a basis of $\mathbb{R}^2$.
+				\item 
+				$\mathbf{v} = x'\mathbf{a}+y'\mathbf{b}+z'\mathbf{c} = (x'-z', y') = (x,y)$ $\Longrightarrow$ $(x', y', z') = (x+t, y, t)$, $\forall$ $t \in \mathbb{R}$.
+				\item 
+				\[
+				\min \Vert (x', y', z') \Vert_1
+				=
+				\min |x'| + |y'| + |z'|
+				=
+				\min |x'| + |z'|
+				=
+				\min |x+t| + |t|
+				\]
+				\begin{equation}
+				\left\{
+				\begin{aligned}
+					\nonumber
+				&|x+t| + |t| \geq |x+t-t| = |x|\\
+				&|x+t| + |t| = |x| \text{ when } t\in[-x,0] \text{ and } x \geq 0 \text{ or } t\in[0,-x] \text{ and } x < 0
+				\end{aligned}
+				\right.
+				\end{equation}
+				In conclusion, $\min \Vert (x', y', z') \Vert_1 = |x| + |y|$.
+			\end{enumerate}
+		\end{enumerate}
+	\end{solution}
+
+	\newpage
+	\begin{exercise}[Rank of matrices ]
+		Let $\mathbf{A} \in \mathbb{R}^{m\times n}$ and $\mathbf{B}\in \mathbb{R}^{n\times p}$.
+		\begin{enumerate}
+			\item Please show that
+			\begin{enumerate}
+				\item $\rank{\mathbf{A}} = \rank{\mathbf{A}^{\top}} = \rank{\mathbf{A}^{\top}\mathbf{A}}= \rank{\mathbf{A}\mathbf{A}^{\top}}$;
+				\item $\rank{\mathbf{A}\mathbf{B}} \leq \rank{\mathbf{A}}$; (please give an example when the equality holds)
+			\end{enumerate}
+			\item The \emph{column space} of $\mathbf{A}$ is defined by
+			\begin{align*}
+				\mathcal{C}(\mathbf{A} ) = \{ \mathbf{y}\in \mathbb{R}^m : \mathbf{y} = \mathbf{Ax},\,\mathbf{x}\in\mathbb{R}^n\}.
+			\end{align*}
+			The \emph{null space} of $\mathbf{A}$ is defined by
+			\begin{align*}
+				\mathcal{N}(\mathbf{A})  = \{ \mathbf{x}\in \mathbb{R}^n : \mathbf{Ax}=0\}.
+			\end{align*}
+			Notice that, the rank of $\mathbf{A}$ is the dimension of the column space of $\mathbf{A}$.
+			
+			Please show that
+			\begin{enumerate}
+				\item $\rank{\mathbf{A}} = \dim(\mathcal{C}(\mathbf{A}))$;
+				\item $\rank{\mathbf{A}} + \dim ( \mathcal{N}( \mathbf{A} ) ) = n$.
+			\end{enumerate}
+			\item Given that
+			\begin{align}\label{eqn:rankaba}
+				\rank{\mathbf{AB}}=\rank{\mathbf{B}}-\dim(\mathcal{C}(\mathbf{B})\cap \mathcal{N}(\mathbf{A})).
+			\end{align}
+			Please show the results in 1.(b) by \eqref{eqn:rankaba}.
+		\end{enumerate}
+	\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Rank of matrices}
+	\begin{enumerate}
+		\item 
+		\begin{enumerate}
+			\item 
+			The column rank of a matrix equals its row rank $\Longrightarrow$ $\rank{\mathbf{A}} = \rank{\mathbf{A}}$.
+
+			For $\mathbf{x} \in \mathbb{R}^n$,
+			\begin{equation}
+				\left\{
+				\begin{aligned}
+					\nonumber
+				&(\mathbf{Ax} = \mathbf{0} \Longrightarrow \mathbf{A^T Ax} = \mathbf{0}) \Longrightarrow \mathcal{N}(\mathbf{A^T A}) \supset \mathcal{N}(\mathbf{A})\\
+				&(\mathbf{A^T Ax} = \mathbf{0} \Longrightarrow \Vert \mathbf{Ax} \Vert_2^2 = \mathbf{x^T A^T Ax} = \mathbf{0} \Longrightarrow \mathbf{Ax} = \mathbf{0}) \Longrightarrow \mathcal{N}(\mathbf{A^T A}) \subset \mathcal{N}(\mathbf{A})
+				\end{aligned}
+				\right.
+			\end{equation}
+			\[
+			\Longrightarrow
+			\mathcal{N}(\mathbf{A^T A}) = \mathcal{N}(\mathbf{A})
+			\]
+			\[
+			\Longrightarrow
+			\rank{\mathbf{A^T A}}
+			=
+			n - \text{dim}\mathbf{A^T A}
+			=
+			n - \text{dim}\mathbf{A}
+			=
+			\rank{\mathbf{A}}
+			\]
+			In the same way, $\rank{\mathbf{A A^T}} = \rank{\mathbf{A}}$.
+
+			In conclusion, $\rank{\mathbf{A}} = \rank{\mathbf{A}^{\top}} = \rank{\mathbf{A}^{\top}\mathbf{A}}= \rank{\mathbf{A}\mathbf{A}^{\top}}$.
+			\item 
+			$\text{Im}(\mathbf{AB}) = \mathbf{A}(\text{Im}(\mathbf{B})) \subset \text{Im}(\mathbf{A})$ $\Longrightarrow$ $\rank{\mathbf{AB}} = \text{dim}(\text{Im}(\mathbf{AB})) \leq \text{dim}(\text{Im}(\mathbf{A})) = \rank{\mathbf{A}}$.
+
+			E.g.:
+			
+			Let $\mathbf{A}\in \mathbb{R}^{n\times n}$ and $\mathbf{B} = I_{n}$. Then $\mathbf{AB} = \mathbf{A}$ $\Longrightarrow$ $\rank{\mathbf{A}\mathbf{B}} = \rank{\mathbf{A}}$.
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item 
+			By definition, $\rank{\mathbf{A}}$ is the maximal number of linearly independent columns of $\mathbf{A}$ and the dimension of the span of a finite set of vectors equals the maximal size of a linearly independent subset of that set. Therefore, $\rank{\mathbf{A}} = \dim(\mathcal{C}(\mathbf{A}))$.
+			\item 
+			Let $\{\mathbf{v_1}, \cdots, \mathbf{v_k}\}$ be a basis of $\mathcal{N}(\mathbf{A})$, where $k = \dim(\mathcal{N}(\mathbf{A}))$. We can extend this basis to a basis of $\mathbb{R}^n$, i.e., there exist vectors $\{\mathbf{w_1}, \cdots, \mathbf{w_{n-k}}\}$ such that $\{\mathbf{v_1}, \cdots, \mathbf{v_k}, \mathbf{w_1}, \cdots, \mathbf{w_{n-k}}\}$ is a basis of $\mathbb{R}^n$.
+
+			We claim that $\{\mathbf{Aw_1}, \cdots, \mathbf{Aw_{n-k}}\}$ is a basis of $\mathcal{C}(\mathbf{A})$.
+
+			Spanning: $\forall$ $\mathbf{y} \in \mathcal{C}(\mathbf{A})$, there exists $\mathbf{x} \in \mathbb{R}^n$ such that $\mathbf{y} = \mathbf{Ax}$. 
+			
+			Since $\{\mathbf{v_1}, \cdots, \mathbf{v_k}, \mathbf{w_1}, \cdots, \mathbf{w_{n-k}}\}$ is a basis of $\mathbb{R}^n$, there exist scalars $\{\alpha_i\}_{i=1}^{k}$ and $\{\beta_j\}_{j=1}^{n-k}$ such that
+			\[
+			\mathbf{x} = \sum\limits_{i=1}^{k} \alpha_i \mathbf{v_i} + \sum\limits_{j=1}^{n-k} \beta_j \mathbf{w_j}
+			\]
+			\[
+			\Longrightarrow
+			\mathbf{y}
+			=
+			\mathbf{Ax}
+			=
+			\sum\limits_{i=1}^{k} \alpha_i \mathbf{Av_i} + \sum\limits_{j=1}^{n-k} \beta_j \mathbf{Aw_j}
+			=
+			\sum\limits_{j=1}^{n-k} \beta_j \mathbf{Aw_j}
+			\]
+			$\Longrightarrow$ $\mathbf{y}$ is a linear combination of $\{\mathbf{Aw_1}, \cdots, \mathbf{Aw_{n-k}}\}$.
+
+			Linear independence: Suppose $\sum\limits_{j=1}^{n-k} \gamma_j \mathbf{Aw_j} = \mathbf{0}$. Then $\mathbf{A}(\sum\limits_{j=1}^{n-k} \gamma_j \mathbf{w_j}) = \mathbf{0}$ $\Longrightarrow$ $\sum\limits_{j=1}^{n-k} \gamma_j \mathbf{w_j} \in \mathcal{N}(\mathbf{A})$. Since $\{\mathbf{v_1}, \cdots, \mathbf{v_k}, \mathbf{w_1}, \cdots, \mathbf{w_{n-k}}\}$ is a basis of $\mathbb{R}^n$, the vectors $\{\mathbf{w_1}, \cdots, \mathbf{w_{n-k}}\}$ are linearly independent and none of them can be expressed as a linear combination of $\{\mathbf{v_1}, \cdots, \mathbf{v_k}\}$. Therefore, $\sum\limits_{j=1}^{n-k} \gamma_j \mathbf{w_j} = \mathbf{0}$ $\Longrightarrow$ $\gamma_j = 0$ for all $j$.
+
+			In conclusion, $\{\mathbf{Aw_1}, \cdots, \mathbf{Aw_{n-k}}\}$ is a basis of $\mathcal{C}(\mathbf{A})$ $\Longrightarrow$ $\dim(\mathcal{C}(\mathbf{A})) = n-k = n - \dim(\mathcal{N}(\mathbf{A}))$ $\Longrightarrow$ $\rank{\mathbf{A}} + \dim ( \mathcal{N}( \mathbf{A} ) ) = n$.
+		\end{enumerate}
+		\item 
+		\begin{align*}
+		\rank{\mathbf{AB}}
+		\xlongequal{1.(a)}
+		\rank{\mathbf{B^T A^T}}
+		&\xlongequal{1.(b)}
+		\rank{\mathbf{A^T}} - \dim(\mathcal{C}(\mathbf{A^T})\cap \mathcal{N}(\mathbf{B^T}))\\
+		&\leq
+		\rank{\mathbf{A^T}}
+		\xlongequal{1.(a)}
+		\rank{\mathbf{A}}
+		\end{align*}
+	\end{enumerate}
+\end{solution}
+	
+\newpage
+    \begin{exercise}[Properties of Eigenvalues and Singular Values]
+    \begin{enumerate}
+        \item Suppose the maximum eigenvalue, minimum eigenvalue and maximum singular value of a given symmetric matrix $\mathbf{A}\in S^n$ are denoted by $\lambda_{\max}(\mathbf{A})$ and $ \lambda_{\min}(\mathbf{A})$, respectively. Please show that
+        \begin{align*}
+            \lambda_{\max}(\mathbf{A})=\sup_{\mathbf{x}\in\mathbb{R}^n, \mathbf{x}\not=\mathbf{0}} \frac{\mathbf{x}^\top\mathbf{A}\mathbf{x}}{\mathbf{x}^\top\mathbf{x}},\,\,\,\,\,
+            \lambda_{\min}(\mathbf{A})=\inf_{\mathbf{x}\in\mathbb{R}^n, \mathbf{x}\not=\mathbf{0}} \frac{\mathbf{x}^\top\mathbf{A}\mathbf{x}}{\mathbf{x}^\top\mathbf{x}}.
+        \end{align*}
+
+        \item (\textbf{Optional}) ~Suppose $\mathbf{B}=(b_{ij})\in \mathbb{R}^{m\times n}$ with maximum singular value $\max\sigma_{\max}(\mathbf{B})$.
+        \begin{enumerate}
+            \item Let $\|\mathbf{B}\|_2:=\sup_{\mathbf{x}\in\mathbb{R}^n, \mathbf{x}\not=\mathbf{0}}\frac{\|\mathbf{Bx}\|_2}{\|\mathbf{x}\|_2}$. Please show that
+             \begin{align*}
+            \sigma_{\max}(\mathbf{B})=\|\mathbf{B}\|_2.
+            \end{align*}
+
+            \item Please show that
+        \begin{align*}
+            \sigma_{\max}(\mathbf{B})=\sup_{\mathbf{x}\in\mathbb{R}^m, \mathbf{y}\in\mathbb{R}^n, \mathbf{x},\mathbf{y}\not=0}\frac{\mathbf{x}^\top \mathbf{B}\mathbf{y}}{\|\mathbf{x}\|_2\|\mathbf{y}\|_2}.
+        \end{align*}
+        \end{enumerate}
+    \end{enumerate}
+    \end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Properties of Eigenvalues and Singular Values}
+	\begin{enumerate}
+		\item 
+		Define Rayleigh quotient:
+		\[
+		R(x) = \frac{\mathbf{x}^\top\mathbf{A}\mathbf{x}}{\mathbf{x}^\top\mathbf{x}}
+		\]
+		Note that $R(\alpha \mathbf{x}) = R(\mathbf{x})$ for any nonzero scalar $\alpha$. Hence
+		\[
+		\sup_{\mathbf{x} \in \mathbb{R}^n, \mathbf{x} \neq 0} R(x) = \max_{\Vert \mathbf{x} \Vert_2 = 1} \mathbf{x^{\top}} \mathbf{A} \mathbf{x},
+		\qquad
+		\inf_{\mathbf{x} \in \mathbb{R}^n, \mathbf{x} \neq 0} R(x) = \min_{\Vert \mathbf{x} \Vert_2 = 1} \mathbf{x^{\top}} \mathbf{A} \mathbf{x}
+		\]
+		Because $\mathbf{x} \mapsto \mathbf{x}^{\top} \mathbf{A} \mathbf{x}$ is continuous and the unit sphere is compact, both extrema are attained.
+
+		By the spectral theorem, there exists an orthogonal matrix $\mathbf{Q}$ and a diagonal matrix $\mathbf{\Lambda} = \text{diag} (\lambda_1, \cdots, \lambda_n)$ with real eigenvalues $\lambda_i$ such that $\mathbf{A} = \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{\top}$.
+
+		Without generality, order the eigenvalues so that $\lambda_{\min} = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n = \lambda_{\max}$.
+
+		For any $\mathbf{x} \in \mathbb{R}^n$,
+		\[
+		\mathbf{x^{\top}} \mathbf{A} \mathbf{x}
+		=
+		\mathbf{x^{\top}} \mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{\top} \mathbf{x}
+		:=
+		\mathbf{y^{\top}} \mathbf{\Lambda} \mathbf{y}
+		=
+		\sum\limits_{i=1}^{n}\lambda_i y_i^2,
+		\qquad
+		\mathbf{x^{\top}}\mathbf{x}
+		=
+		(\mathbf{Q}\mathbf{y})^{\top}(\mathbf{Q}\mathbf{y})
+		=
+		\mathbf{y^{\top}}\mathbf{y}
+		\]
+		\[
+		\Longrightarrow
+		R(x)
+		=
+		\frac{\sum\limits_{i=1}^{n}\lambda_i y_i^2}{\sum\limits_{i=1}^{n}y_i^2}
+		\in
+		[\lambda_{\min}, \lambda_{\max}]
+		\]
+		Let $\mathbf{v_{\max}}$ be a unit eigenvector of $\mathbf{A}$ associated with $\lambda_{\max}$, then 
+		$$
+		R(\mathbf{v_{\max}}) = \frac{\mathbf{v_{\max}}^{\top} \mathbf{A} \mathbf{v_{\max}}}{\mathbf{v_{\max}}^{\top} \mathbf{v_{\max}}} = \lambda_{\max}.
+		$$
+		Similarly, let $\mathbf{v_{\min}}$ be a unit eigenvector associated with $\lambda_{\min}$, then $R(\mathbf{v_{\min}}) = \lambda_{\min}$.
+
+		In conclusion,
+		\begin{align*}
+            \lambda_{\max}(\mathbf{A})=\sup_{\mathbf{x}\in\mathbb{R}^n, \mathbf{x}\not=\mathbf{0}} \frac{\mathbf{x}^\top\mathbf{A}\mathbf{x}}{\mathbf{x}^\top\mathbf{x}},\,\,\,\,\,
+            \lambda_{\min}(\mathbf{A})=\inf_{\mathbf{x}\in\mathbb{R}^n, \mathbf{x}\not=\mathbf{0}} \frac{\mathbf{x}^\top\mathbf{A}\mathbf{x}}{\mathbf{x}^\top\mathbf{x}}.
+        \end{align*}
+		\item 
+		\begin{enumerate}
+			\item 
+			\[
+			\|\mathbf{B}\|_2
+			=
+			\max_{\Vert \mathbf{x} \Vert_2 = 1} \Vert \mathbf{Bx} \Vert_2
+			=
+			\max_{\Vert \mathbf{x} \Vert_2 = 1} [(\mathbf{Bx})^{\top} \mathbf{Bx}]^{\frac{1}{2}}
+			=
+			\max_{\Vert \mathbf{x} \Vert_2 = 1} [\mathbf{x}^{\top} (\mathbf{B^T B}) \mathbf{x}]^{\frac{1}{2}}
+			\]
+			Notice that $\mathbf{B^T B}$ is symmetric and positive semi-definite. Without generality, let its eigenvalues be
+			\[
+			\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0.
+			\]
+			and let their corresponding orthogonal normalized eigenvectors be $\mathbf{v_1}, \cdots, \mathbf{v_n} \in \mathbb{R}^n$. Then for any $\mathbf{x} \in \mathbb{R}^n$ with $\Vert \mathbf{x} \Vert_2 = 1$, there exist scalars $\alpha_1, \cdots, \alpha_n$ such that
+			\[
+			\mathbf{x} = \sum\limits_{i=1}^{n} \alpha_i \mathbf{v_i},
+			\qquad
+			\sum\limits_{i=1}^{n} \alpha_i^2 = 1
+			\]
+			\[
+			\Longrightarrow
+			\mathbf{x}^{\top} (\mathbf{B^T B}) \mathbf{x}
+			=
+			\sum\limits_{i=1}^{n} \lambda_i \alpha_i^2
+			\leq
+			\lambda_1 \sum\limits_{i=1}^{n} \alpha_i^2
+			=
+			\lambda_1
+			\]
+			Besides, let $\mathbf{x} = \mathbf{v_1}$, then $\mathbf{x}^{\top} (\mathbf{B^T B}) \mathbf{x} = \lambda_1$. 
+			
+			In conclusion, $\|\mathbf{B}\|_2 = \sqrt{\lambda_1} = \sigma_{\max}(\mathbf{B})$.
+			\item 
+			By Cauchy-Schwarz inequality,
+			\[
+			\mathbf{x}^{\top} \mathbf{B} \mathbf{y}
+			\leq
+			\Vert \mathbf{x} \Vert_2 \Vert \mathbf{B} \mathbf{y} \Vert_2
+			\leq
+			\Vert \mathbf{x} \Vert_2 \Vert \mathbf{B} \Vert_2 \Vert \mathbf{y} \Vert_2
+			=
+			\Vert \mathbf{x} \Vert_2 \sigma_{\max}(\mathbf{B}) \Vert \mathbf{y} \Vert_2
+			\]
+			Let $\mathbf{x} = \mathbf{u_1}$ and $\mathbf{y} = \mathbf{v_1}$, where $\mathbf{u_1}$ and $\mathbf{v_1}$ are the left and right singular vectors of $\mathbf{B}$ associated with $\sigma_{\max}(\mathbf{B})$. Then
+			\[
+			\mathbf{x}^{\top} \mathbf{B} \mathbf{y}
+			=
+			\mathbf{u_1}^{\top} \mathbf{B} \mathbf{v_1}
+			=
+			\sigma_{\max}(\mathbf{B})
+			=
+			\Vert \mathbf{u_1} \Vert_2 \sigma_{\max}(\mathbf{B}) \Vert \mathbf{v_1} \Vert_2
+			\]
+			In conclusion,
+			\begin{align*}
+			\sigma_{\max}(\mathbf{B})=\sup_{\mathbf{x}\in\mathbb{R}^m, \mathbf{y}\in\mathbb{R}^n, \mathbf{x},\mathbf{y}\not=0}\frac{\mathbf{x}^\top \mathbf{B}\mathbf{y}}{\|\mathbf{x}\|_2\|\mathbf{y}\|_2}.
+			\end{align*}
+		\end{enumerate}	
+	\end{enumerate}
+\end{solution}
+
+\newpage
+\begin{exercise}[Matrix SVD Decomposition and Pseudoinverse]
+    \begin{enumerate}
+    \item 
+    For any real matrix $\mathbf{A}\in\mathbb{R}^{n\times m}$, the \textbf{Moore-Penrose generalized inverse} (or pseudoinverse) of $\mathbf{A}$, denoted by $\mathbf{A}^+\in\mathbb{R}^{m\times n}$, is a matrix that satisfies the following four conditions:
+
+        \begin{enumerate}
+            \item $\mathbf{A}\mathbf{A}^+\mathbf{A} = \mathbf{A}$ \hfill (Consistency condition)
+            \item $\mathbf{A}^+\mathbf{A}\mathbf{A}^+ = \mathbf{A}^+$ \hfill (Reflexivity condition)
+            \item $(\mathbf{A}\mathbf{A}^+)^\top = \mathbf{A}\mathbf{A}^+$ \hfill (Symmetry condition 1)
+            \item $(\mathbf{A}^+\mathbf{A})^\top = \mathbf{A}^+\mathbf{A}$ \hfill (Symmetry condition 2)
+        \end{enumerate}
+    Suppose that the matrix \( \mathbf{A} \) can be decomposed via Singular Value Decomposition (SVD) as \( \mathbf{A} = \mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^\top \), Please show that $\mathbf{A}^+ = \mathbf{V}\boldsymbol\Sigma^{+} \mathbf{U}^\top$, where $ \boldsymbol \Sigma^+ \in\mathbb{R}^{m\times n} $ is defined by:
+    \[
+    \boldsymbol\Sigma^+_{ij} = 
+    \begin{cases} 
+    \frac{1}{\boldsymbol\Sigma_{ii}} & \text{if } i = j \text{ and } \boldsymbol \Sigma_{ii} \neq 0, \\
+    0 & \text{otherwise}.
+    \end{cases}
+    \]
+    
+    
+    \item \textbf{(Optional)} Please show that $\mathbf{A}^+$ is unique for any matrix $\mathbf{A}\in\mathbb{R}^{n\times m}$.
+
+    \item Consider the linear system $\mathbf{A}\mathbf{x} = \mathbf{b}$ where $\mathbf{A}\in\mathbb{R}^{n\times m}$, $\mathbf{x} \in \mathbb{R}^m$, and $\mathbf{b} \in \mathbb{R}^n$. Please show that if the system has no solution (i.e., $\mathbf{b}$ is not in the column space of $\mathbf{A}$), the least squares solution to the system
+    $$
+	\arg \min_{\mathbf{x}\in\mathbb{R}^m}\quad \Vert \mathbf{A}\mathbf{x} - \mathbf b \Vert_2^2,
+    $$
+    is given by $\mathbf{x} = \mathbf A^ + \mathbf b$, where $\mathbf{A}^+\in\mathbb{R}^{m\times n}$ is the Moore-Penrose generalized inverse of matrix $\mathbf{A}$ defined above.
+
+    (\textbf{Hint}: For any orthogonal matrix $\mathbf{U}\in\mathbb{R}^{n\times n}$ and vector $\mathbf{x}\in\mathbb{R}^n$, then $\|\mathbf{U}\mathbf{x}\|_2 = \|\mathbf{x}\|_2$)
+\end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{solution}\textbf{Matrix SVD Decomposition and Pseudoinverse}
+	\begin{enumerate}
+	\item 
+	\begin{enumerate}
+		\item 
+		\[
+		\mathbf{A}\mathbf{A}^{+}\mathbf{A}
+		=
+		\mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top} \mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top} \mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top}
+		=
+		\mathbf{U}\boldsymbol{\Sigma} \boldsymbol{\Sigma}^{+} \boldsymbol{\Sigma} \mathbf{V}^{\top}
+		=
+		\mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top}
+		=
+		\mathbf{A}
+		\]
+		\item 
+		\[
+		\mathbf{A}^{+}\mathbf{A}\mathbf{A}^{+}
+		=
+		\mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top} \mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top} \mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top}
+		=
+		\mathbf{V}\boldsymbol{\Sigma}^{+} \boldsymbol{\Sigma} \boldsymbol{\Sigma}^{+} \mathbf{U}^{\top}
+		=
+		\mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top}
+		=
+		\mathbf{A}^{+}
+		\]
+		\item 
+		\[
+		(\mathbf{A}\mathbf{A}^{+})^{\top}
+		=
+		(\mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top} \mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top})^{\top}
+		=
+		\mathbf{U}\boldsymbol{\Sigma} \boldsymbol{\Sigma}^{+} \mathbf{U}^{\top}
+		=
+		\mathbf{A}\mathbf{A}^{+}
+		\]
+		\item
+		\[
+		(\mathbf{A}^{+}\mathbf{A})^{\top}
+		=
+		(\mathbf{V}\boldsymbol{\Sigma}^{+} \mathbf{U}^{\top} \mathbf{U}\boldsymbol{\Sigma} \mathbf{V}^{\top})^{\top}
+		=
+		\mathbf{V}\boldsymbol{\Sigma}^{+} \boldsymbol{\Sigma} \mathbf{V}^{\top}
+		=
+		\mathbf{A}^{+}\mathbf{A}
+		\]
+	\end{enumerate}
+	\item 
+	Assume that there exist two pseudoinverses $\mathbf{B}$ and $\mathbf{C}$ of $\mathbf{A}$. Set $\mathbf{X} = \mathbf{B} - \mathbf{C}$.
+
+	Given that $\mathbf{B}$ and $\mathbf{C}$ satisfy the four Moore-Penrose conditions:
+	\[
+	\mathbf{ABA} = \mathbf{A},
+	\qquad
+	\mathbf{BAB} = \mathbf{B},
+	\qquad
+	(\mathbf{AB})^{\top} = \mathbf{AB},
+	\qquad
+	(\mathbf{BA})^{\top} = \mathbf{BA}
+	\]
+	\[
+	\mathbf{ACA} = \mathbf{A},
+	\qquad
+	\mathbf{CAC} = \mathbf{C},
+	\qquad
+	(\mathbf{AC})^{\top} = \mathbf{AC},
+	\qquad
+	(\mathbf{CA})^{\top} = \mathbf{CA}
+	\]
+	Then
+	\[
+	\mathbf{AXA}
+	=
+	\mathbf{ABA} - \mathbf{ACA}
+	=
+	\mathbf{A} - \mathbf{A}
+	=
+	\mathbf{0}
+	\]
+	\[
+	\mathbf{AX}
+	=
+	\mathbf{AB} - \mathbf{AC}
+	=
+	(\mathbf{AB})^{\top} - (\mathbf{AC})^{\top}
+	=
+	(\mathbf{AB} - \mathbf{AC})^{\top}
+	=
+	(\mathbf{AX})^{\top}
+	\]
+	\[
+	\mathbf{XA}
+	=
+	\mathbf{BA} - \mathbf{CA}
+	=
+	(\mathbf{BA})^{\top} - (\mathbf{CA})^{\top}
+	=
+	(\mathbf{BA} - \mathbf{CA})^{\top}
+	=
+	(\mathbf{XA})^{\top}
+	\]
+	\begin{equation}
+		\Longrightarrow
+		\left\{
+		\begin{aligned}
+			\nonumber
+		&\Vert \mathbf{AX} \Vert_2^2
+		=
+		\tr\left((\mathbf{A} \mathbf{X})^{\top} \mathbf{A} \mathbf{X}\right)
+		=
+		\tr\left(\mathbf{AXAX}\right)
+		=
+		\tr\left((\mathbf{AXA})\mathbf{X}\right)
+		=
+		\tr\left(\mathbf{0X}\right)
+		=
+		0\\
+		&\Vert \mathbf{XA} \Vert_2^2
+		=
+		\tr\left((\mathbf{X} \mathbf{A})^{\top} \mathbf{X} \mathbf{A}\right)
+		=
+		\tr\left(\mathbf{XAXA}\right)
+		=
+		\tr\left(\mathbf{X(AXA)}\right)
+		=
+		\tr\left(\mathbf{X0}\right)
+		=
+		0
+		\end{aligned}
+		\right.
+	\end{equation}
+	\begin{equation}
+		\Longrightarrow
+		\left\{
+		\begin{aligned}
+			\nonumber
+		&\mathbf{AX} = \mathbf{0}\\
+		&\mathbf{XA} = \mathbf{0}
+		\end{aligned}
+		\right.
+	\end{equation}
+	\begin{align*}
+	\Longrightarrow
+	\mathbf{X}
+	=
+	\mathbf{B} - \mathbf{C}
+	&=
+	\mathbf{BAB} - \mathbf{CAC}\\
+	&=
+	\mathbf{BAB} - \mathbf{CAB} + \mathbf{CAB} - \mathbf{CAC}\\
+	&=
+	\mathbf{(B-C)AB} + \mathbf{CA(B-C)}\\
+	&=
+	\mathbf{XAB} + \mathbf{CAX}
+	=
+	\mathbf{0B} + \mathbf{C0}
+	=
+	\mathbf{0}
+	\end{align*}
+	\[
+	\Longrightarrow
+	\mathbf{B} = \mathbf{C}
+	\]
+	In conclusion, the pseudoinverse $\mathbf{A}^+$ is unique.
+	\item 
+	Let $\mathbf{A} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{\top}$ be the SVD of $\mathbf{A}$, where $\mathbf{U} \in \mathbb{R}^{n \times n}$ and $\mathbf{V} \in \mathbb{R}^{m \times m}$ are orthogonal matrices, and $\boldsymbol{\Sigma} \in \mathbb{R}^{n \times m}$ is a diagonal matrix with singular values $\sigma_1, \sigma_2, \ldots, \sigma_r$ on the diagonal (where $r = \text{rank}(\mathbf{A})$).
+
+	Then
+	\[
+	\Vert \mathbf{A} \mathbf{x} - \mathbf{b} \Vert_2^2
+	=
+	\Vert \mathbf{U^{\top}} (\mathbf{Ax} - \mathbf{b}) \Vert_2^2
+	=
+	\Vert \boldsymbol{\Sigma} \mathbf{V}^{\top} \mathbf{x} - \mathbf{U}^{\top} \mathbf{b} \Vert_2^2
+	\]
+	Let $\mathbf{y} = \mathbf{V}^{\top} \mathbf{x}$ and $\mathbf{c} = \mathbf{U}^{\top} \mathbf{b}$. Then the problem reduces to
+	\[
+	\min_{\mathbf{y} \in \mathbb{R}^m} \Vert \boldsymbol{\Sigma} \mathbf{y} - \mathbf{c} \Vert_2^2
+	=
+	\min_{\mathbf{y} \in \mathbb{R}^m} \sum\limits_{i=1}^{r} (\sigma_i y_i - c_i)^2 + \sum\limits_{i=r+1}^{n} c_i^2
+	\]
+	Note that the second term $\sum\limits_{i=r+1}^{n} c_i^2$ is constant with respect to $\mathbf{y}$. Therefore, we only need to minimize the first term, which is minimized when $y_i = \frac{c_i}{\sigma_i}$ for $i = 1, 2, \ldots, r$ and $y_i$ can be any value for $i = r+1, r+2, \ldots, m$.
+
+	Hence, the set of least squares minimizers is
+	\[
+	\mathbf{x}
+	=
+	\mathbf{V} \mathbf{y},
+	\qquad
+	\mathbf{y}
+	=
+	(\frac{c_1}{\sigma_1}, \frac{c_2}{\sigma_2}, \ldots, \frac{c_r}{\sigma_r}, y_{r+1}, \ldots, y_m)^{\top},
+	y_{r+1}, \ldots, y_m \in \mathbb{R}
+	\]
+	Let $y_i = 0$, $i = r+1, r+2, \ldots, m$. Then the least-norm solution is
+	\[
+	\mathbf{x}
+	=
+	\mathbf{V}
+	(\frac{c_1}{\sigma_1}, \frac{c_2}{\sigma_2}, \ldots, \frac{c_r}{\sigma_r}, 0, \ldots, 0)^{\top}
+	=
+	\mathbf{V} \boldsymbol{\Sigma}^{+} \mathbf{U}^{\top} \mathbf{b}
+	=
+	\mathbf{A}^{+} \mathbf{b}
+	\]
+	\end{enumerate}
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\newpage
+	\newpage
+    \bibliography{refs}
+    \bibliographystyle{abbrv}
+	
+\end{document}

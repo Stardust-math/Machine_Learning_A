@@ -82,42 +82,52 @@ def _load_xy_from_file(path: Path):
     ys = np.array(ys, dtype=float).reshape(-1, 1)
     return xs, ys
 
-# For file_name, compute and plot parameter estimators for each lambda in lam_list
-def compute_parameter_estimator(file_name, lam_list):
-    # Resolve path and load data
-    file_path = _resolve_path(file_name)
-    x_l, y_l = _load_xy_from_file(file_path)
-
-    if x_l.shape[0] != 25:
-        print(f"Warning: Read {x_l.shape[0]} points (not 25). Code will continue with plotting.")
-
-    # Compute Φ and \hat{w}
-    N = x_l.shape[0]
-    phi = np.zeros((N, 25), dtype=float)
-    for i in range(N):
-        phi[i, :] = phi_x(float(x_l[i, 0]))
-
-    # Plotting
-    plt.figure(figsize=(10, 8))
-    plt.scatter(x_l, y_l, marker='o', label='data', zorder=3)
-
-    x_range = np.arange(-1, 1, 0.01)
-    # Precompute all φ(x) into a matrix for speedup
-    Phi_grid = np.vstack([phi_x(x) for x in x_range])  # shape: (len(x_range), 25)
-
+def compute_parameter_estimator_for_all_datasets(lam_list):
+    # Create list of data file names
+    file_list = [f"Exercise-7-data/data_{i}" for i in range(1, 26)]
+    
+    # For each lambda value, plot the fitting results for all datasets
     for lam in lam_list:
-        w = hat_w(phi, y_l, lam)          # (25,1)
-        y_pred = (Phi_grid @ w).ravel()     # (len(x_range),)
-        plt.plot(x_range, y_pred, label=rf"$\lambda$ = {lam}", linewidth=1.8)
+        plt.figure(figsize=(12, 8))
 
-    plt.xlabel("x")
-    plt.ylabel("y / prediction")
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.show()
+        # Fit each dataset and plot
+        for file_idx, file_name in enumerate(file_list):
+            try:
+                # Load data
+                file_path = _resolve_path(file_name)
+                x_l, y_l = _load_xy_from_file(file_path)
+
+                if x_l.shape[0] != 25:
+                    print(f"Warning: {file_name} has {x_l.shape[0]} points (not 25).")
+
+                # Compute Φ matrix
+                N = x_l.shape[0]
+                phi = np.zeros((N, 25), dtype=float)
+                for i in range(N):
+                    phi[i, :] = phi_x(float(x_l[i, 0]))
+
+                # Compute fitting curve
+                x_range = np.arange(-1, 1, 0.01)
+                Phi_grid = np.vstack([phi_x(x) for x in x_range])
+                
+                w = hat_w(phi, y_l, lam)
+                y_pred = (Phi_grid @ w).ravel()
+
+                # Plot fitting curve with different colors for each dataset
+                plt.plot(x_range, y_pred, label=f'Dataset {file_idx+1}', linewidth=1.5, alpha=0.7)
+
+            except FileNotFoundError:
+                print(f"Warning: File {file_name} not found, skipping.")
+                continue
+        
+        plt.xlabel("x")
+        plt.ylabel("y / prediction")
+        plt.title(f"Fitting Results for All Datasets (λ = {lam})")
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')  # Place legend on the right
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.show()
 
 if __name__ == "__main__":
     lam_list = [10, 0.1, 1e-5, 1e-10]
-    file = "Exercise-7-data/data_1"
-    compute_parameter_estimator(file, lam_list)
+    compute_parameter_estimator_for_all_datasets(lam_list)

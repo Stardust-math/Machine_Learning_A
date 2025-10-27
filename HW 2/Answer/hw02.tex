@@ -1358,20 +1358,24 @@ which is a linear combination of basis functions, where $\boldsymbol{\phi}(\math
 	\item 
 	Here are respective prediction plots for different $\lambda = 10, 0.1, 1e-5, 1e-10$:
 	\begin{center}
-    	\includegraphics[width=0.6\textwidth]{./Figure/7-2_1.png}
+    	\includegraphics[width=0.8\textwidth]{./Figure/7-2_1.png}
     	\captionof{figure}{Prediction Plots with $\lambda = 10$}
+		\label{fig:prediction plot 1}
 	\end{center}
 	\begin{center}
-    	\includegraphics[width=0.6\textwidth]{./Figure/7-2_2.png}
+    	\includegraphics[width=0.8\textwidth]{./Figure/7-2_2.png}
     	\captionof{figure}{Prediction Plots with $\lambda = 0.1$}
+		\label{fig:prediction plot 2}
 	\end{center}
 	\begin{center}
-    	\includegraphics[width=0.6\textwidth]{./Figure/7-2_3.png}
+    	\includegraphics[width=0.8\textwidth]{./Figure/7-2_3.png}
     	\captionof{figure}{Prediction Plots with $\lambda = 1e-5$}
+		\label{fig:prediction plot 3}
 	\end{center}
 	\begin{center}
-    	\includegraphics[width=0.6\textwidth]{./Figure/7-2_4.png}
+    	\includegraphics[width=0.8\textwidth]{./Figure/7-2_4.png}
     	\captionof{figure}{Prediction Plots with $\lambda = 1e-10$}
+		\label{fig:prediction plot 4}
 	\end{center}
 	\item 
 	Here are Bias, Variance and total error plots:
@@ -1380,6 +1384,7 @@ which is a linear combination of basis functions, where $\boldsymbol{\phi}(\math
 		\captionof{figure}{Error Plots}
 		\label{fig:error-plots}
 	\end{center}
+	(The results in Figure \ref{fig:error-plots} are consistent with the results in Figure \ref{fig:prediction plot 1}, \ref{fig:prediction plot 2}, \ref{fig:prediction plot 3}, and \ref{fig:prediction plot 4}, i.e. the total error first decreases and then increases as $\lambda$ increases.)
 \end{enumerate}
 \end{solution}
 

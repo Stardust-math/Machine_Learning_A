@@ -1,0 +1,234 @@
+\documentclass[11pt,letter,notitlepage]{article}
+\usepackage[left=2cm, right=2cm, lines=45, top=0.8in, bottom=0.7in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\newcommand\Loadedframemethod{TikZ}
+\usepackage[framemethod=\Loadedframemethod]{mdframed}
+\usepackage{amssymb,amsmath}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{bm}
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Define math operator %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\argmin}{\bf argmin}
+\DeclareMathOperator*{\relint}{\bf relint\,}
+\DeclareMathOperator*{\dom}{\bf dom\,}
+\DeclareMathOperator*{\intp}{\bf int\,}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Exercise environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{exercise}{\textbf{Exercise}}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Problem environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{problem}{\textbf{Problem}}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Solution Environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\declaretheoremstyle
+[
+spaceabove=0pt,
+spacebelow=0pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries,
+notebraces={(}{)},
+headpunct={:\;},
+headindent={},
+postheadspace={ },
+bodyfont=\normalfont,
+qed=$\blacksquare$,
+preheadhook={\begin{mdframed}[style=myframedstyle]},
+postfoothook=\end{mdframed},
+]{mystyle}
+\declaretheorem[style=mystyle,title=Solution]{solution}
+\mdfdefinestyle{myframedstyle}{%
+	topline=false,
+	rightline=false,
+	leftline=false,
+	bottomline=false,
+	skipabove=-6ex,
+	leftmargin=-10,
+	rightmargin=-10,
+	backgroundcolor=black!5}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\proj}[2]{\textbf{P}_{#2} (#1)}
+\newcommand{\lspan}[1]{\textbf{span}  (#1)  }
+\newcommand{\rank}[1]{ \textbf{rank}  (#1)  }
+\newcommand{\tr}{ \operatorname{tr}  }
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\DeclareMathOperator*{\cl}{\bf cl\,}
+\DeclareMathOperator*{\bd}{\bf bd\,}
+\DeclareMathOperator*{\conv}{\bf conv\,}
+\DeclareMathOperator*{\epi}{\bf epi\,}
+\theoremstyle{definition}	
+\newtheorem{definition}{Definition}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%           Homework info.             %%
+\newcommand{\posted}{\text{Nov. 28th, 2025}}
+\newcommand{\due}{\text{Dec. 16th, 2025}}
+\newcommand{\hwno}{\text{3}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Put your information here   %%
+\newcommand{\name}{\text{Jinghao Chen}}
+\newcommand{\id}{\text{PB23010359}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chead{\textbf{Homework \hwno}}
+
+\begin{document}
+	\vspace*{-4\baselineskip}
+	\thispagestyle{empty}
+	
+	\begin{center}
+		{\bf\large Introduction to Machine Learning}\\
+		{Fall 2025}\\
+		University of Science and Technology of China
+	\end{center}
+	
+	\noindent
+	Lecturer: Zhihui Li, Xiaojun Chang
+	\hfill
+	Homework \hwno
+	\\
+	Posted: \posted
+	\hfill
+	Due: \due
+    \\
+    Name: \name
+	\hfill
+	ID: \id
+	
+	\noindent
+	\rule{\textwidth}{2pt}
+	
+	\medskip
+	
+	\textbf{Notice, }to get the full credits, please present your solutions step by step.
+
+    \begin{exercise}[Affine Sets and Projections]
+        \begin{enumerate}[label=(\arabic*)]
+        \item Let \(A\in\mathbb{R}^{m\times n}\), \(b\in\mathbb{R}^{m}\), and consider
+        \[U=\{x\in\mathbb{R}^{n}:Ax=b\}.\]
+        \begin{enumerate}[label=(\alph*)]
+            \item Show that \(U\) is an affine set. Identify its direction space in terms of \(A\).
+            \item Prove that for any \(x_{0}\in U\),
+            \[U=x_{0}+\mathcal{N}(A),\]
+            where \(\mathcal{N}(A)\) denotes the null space of \(A\).
+        \end{enumerate}
+        
+        \item Suppose \(A\in\mathbb{R}^{m\times n}\) has full row rank and \(U=\{x:Ax=b\}\) is nonempty.
+        \begin{enumerate}[label=(\alph*)]
+            \item Consider the projection of a point \(y\in\mathbb{R}^{n}\) onto \(U\):
+            \[p=\argmin_{x\in U}\|x-y\|^{2}_{2}.\]
+            Use Lagrange multipliers to derive the formula
+            \[p=y-A^{\top}(AA^{\top})^{-1}(Ay-b).\]
+            \item In \(\mathbb{R}^{3}\), let
+            \[U=\{x\in\mathbb{R}^{3}:x_{1}+2x_{2}-x_{3}=3\},\quad y=(1,0,0)^{\top}.\]
+            Compute explicitly the projection \(p\) of \(y\) onto \(U\).
+        \end{enumerate}
+        \end{enumerate}
+    \end{exercise}
+
+    \newpage
+
+    \begin{exercise}[Convex Sets, Images and Preimages]
+        Let \(C\subseteq\mathbb{R}^{n}\) be a nonempty convex set and let \(A\in\mathbb{R}^{m\times n}\), \(a\in\mathbb{R}^{m}\).
+        \begin{enumerate}[label=(\arabic*)]
+        \item Show that the affine image of \(C\),
+        \[D=\{y\in\mathbb{R}^{m}:y=Ax+a,\,x\in C\},\]
+        is convex.
+        
+        \item Define the affine preimage of \(C\) by
+        \[E=\{y\in\mathbb{R}^{m}:Ay+a\in C\}.\]
+        Show that \(E\) is convex.
+        
+        \item (Epigraph and hypograph)
+        \begin{enumerate}[label=(\alph*)]
+            \item Let \(f:\mathbb{R}^{n}\to\mathbb{R}\) be a convex function. The epigraph of \(f\) is 
+            \[\epi f=\{(x,t)\in\mathbb{R}^{n+1}:t\geq f(x)\}.\]
+            Show that \(\epi f\) is a convex set.
+            \item Let \(g:\mathbb{R}^{n}\to\mathbb{R}\) be concave. Its hypograph is 
+            \[\operatorname{hypo}g=\{(x,t)\in\mathbb{R}^{n+1}:t\leq g(x)\}.\]
+            Show that \(\operatorname{hypo}g\) is convex.
+        \end{enumerate}
+        
+        \item (Interior and relative interior -- computation) You do not need to prove your answers, but you should explain them briefly.
+        \begin{enumerate}[label=(\alph*)]
+            \item Find \(\intp C\) and \(\relint C\) for 
+            \[C=\{x\in\mathbb{R}^{3}:x_{1}^{2}+x_{2}^{2}<4,\ x_{3}\geq 0\}.\]
+            \item Let 
+            \[K=\{x\in\mathbb{R}^{n}:x_{i}\geq 0,\ \sum_{i=1}^{n}x_{i}=1\}\]
+            be the standard probability simplex. Determine \(\intp K\) (as a subset of \(\mathbb{R}^{n}\)) and \(\relint K\).
+        \end{enumerate}
+        \end{enumerate}
+    \end{exercise}
+
+    \newpage
+
+    \begin{exercise}[Cones and Farkas-type Results]
+        Let \(A=(a_{1},\ldots,a_{n})\in\mathbb{R}^{m\times n}\) and consider the conic hull
+        \[\operatorname{cone}(A)=\left\{\sum_{i=1}^{n}\alpha_{i}a_{i}:\alpha_{i}\geq 0\right\}\subseteq\mathbb{R}^{m}.\]
+        
+        \begin{enumerate}[label=(\arabic*)]
+        \item Show that \(\operatorname{cone}(A)\) is a convex cone, i.e.,
+        \[x,y\in\operatorname{cone}(A),\ \lambda,\mu\geq 0\ \Rightarrow\ \lambda x+\mu y\in\operatorname{cone}(A).\]
+        
+        \item Show that \(\operatorname{cone}(A)\) is closed.
+        
+        \item (Gordan's theorem) Let \(A\in\mathbb{R}^{m\times n}\). Prove that exactly one of the following two systems has a solution:
+        \begin{itemize}
+            \item There exists \(x\in\mathbb{R}^{n}\) such that \(Ax>0\) (componentwise).
+            \item There exists \(y\in\mathbb{R}^{m}\), \(y\geq 0\), \(y\neq 0\), such that \(A^{\top}y=0\).
+        \end{itemize}
+        Hint: Consider appropriate cones and use separation theorems (you may assume standard separation results for closed convex cones).
+        
+        \item Show how Farkas' Lemma can be deduced from Gordan's theorem in part (3).
+        \end{enumerate}
+    \end{exercise}
+
+    \newpage
+    \bibliography{refs}
+    \bibliographystyle{abbrv}
+	
+\end{document}

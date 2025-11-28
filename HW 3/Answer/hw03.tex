@@ -1,0 +1,608 @@
+\documentclass[11pt,letter,notitlepage]{article}
+\usepackage[left=2cm, right=2cm, lines=45, top=0.8in, bottom=0.7in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+\newcommand\Loadedframemethod{TikZ}
+\usepackage[framemethod=\Loadedframemethod]{mdframed}
+\usepackage{amssymb,amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{bm}
+\usepackage{extarrows}
+\usepackage{pifont}
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Define math operator %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\argmin}{\bf argmin}
+\DeclareMathOperator*{\relint}{\bf relint\,}
+\DeclareMathOperator*{\dom}{\bf dom\,}
+\DeclareMathOperator*{\intp}{\bf int\,}
+\DeclareMathOperator*{\aff}{\bf aff\,}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Exercise environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{exercise}{\textbf{Exercise}}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Problem environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\mdtheorem[
+topline=false,
+rightline=false,
+leftline=false,
+bottomline=false,
+leftmargin=-10,
+rightmargin=-10
+]{problem}{\textbf{Problem}}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define the Solution Environment %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\declaretheoremstyle
+[
+spaceabove=0pt,
+spacebelow=0pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries,
+notebraces={(}{)},
+headpunct={:\;},
+headindent={},
+postheadspace={ },
+bodyfont=\normalfont,
+qed=$\blacksquare$,
+preheadhook={\begin{mdframed}[style=myframedstyle]},
+postfoothook=\end{mdframed},
+]{mystyle}
+\declaretheorem[style=mystyle,title=Solution]{solution}
+\mdfdefinestyle{myframedstyle}{%
+	topline=false,
+	rightline=false,
+	leftline=false,
+	bottomline=false,
+	skipabove=-6ex,
+	leftmargin=-10,
+	rightmargin=-10,
+	backgroundcolor=black!5}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\proj}[2]{\textbf{P}_{#2} (#1)}
+\newcommand{\lspan}[1]{\textbf{span}  (#1)  }
+\newcommand{\rank}[1]{ \textbf{rank}  (#1)  }
+\newcommand{\tr}{ \operatorname{tr}  }
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\DeclareMathOperator*{\cl}{\bf cl\,}
+\DeclareMathOperator*{\bd}{\bf bd\,}
+\DeclareMathOperator*{\conv}{\bf conv\,}
+\DeclareMathOperator*{\epi}{\bf epi\,}
+\theoremstyle{definition}	
+\newtheorem{definition}{Definition}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%           Homework info.             %%
+\newcommand{\posted}{\text{Nov. 28th, 2025}}
+\newcommand{\due}{\text{Dec. 16th, 2025}}
+\newcommand{\hwno}{\text{3}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Put your information here   %%
+\newcommand{\name}{\text{Jinghao Chen}}
+\newcommand{\id}{\text{PB23010359}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chead{\textbf{Homework \hwno}}
+
+\begin{document}
+	\vspace*{-4\baselineskip}
+	\thispagestyle{empty}
+	
+	\begin{center}
+		{\bf\large Introduction to Machine Learning}\\
+		{Fall 2025}\\
+		University of Science and Technology of China
+	\end{center}
+	
+	\noindent
+	Lecturer: Zhihui Li, Xiaojun Chang
+	\hfill
+	Homework \hwno
+	\\
+	Posted: \posted
+	\hfill
+	Due: \due
+    \\
+    Name: \name
+	\hfill
+	ID: \id
+	
+	\noindent
+	\rule{\textwidth}{2pt}
+	
+	\medskip
+	
+	\textbf{Notice, }to get the full credits, please present your solutions step by step.
+
+    \begin{exercise}[Affine Sets and Projections]
+        \begin{enumerate}[label=(\arabic*)]
+        \item Let \(A\in\mathbb{R}^{m\times n}\), \(b\in\mathbb{R}^{m}\), and consider
+        \[U=\{x\in\mathbb{R}^{n}:Ax=b\}.\]
+        \begin{enumerate}[label=(\alph*)]
+            \item Show that \(U\) is an affine set. Identify its direction space in terms of \(A\).
+            \item Prove that for any \(x_{0}\in U\),
+            \[U=x_{0}+\mathcal{N}(A),\]
+            where \(\mathcal{N}(A)\) denotes the null space of \(A\).
+        \end{enumerate}
+        
+        \item Suppose \(A\in\mathbb{R}^{m\times n}\) has full row rank and \(U=\{x:Ax=b\}\) is nonempty.
+        \begin{enumerate}[label=(\alph*)]
+            \item Consider the projection of a point \(y\in\mathbb{R}^{n}\) onto \(U\):
+            \[p=\argmin_{x\in U}\|x-y\|^{2}_{2}.\]
+            Use Lagrange multipliers to derive the formula
+            \[p=y-A^{\top}(AA^{\top})^{-1}(Ay-b).\]
+            \item In \(\mathbb{R}^{3}\), let
+            \[U=\{x\in\mathbb{R}^{3}:x_{1}+2x_{2}-x_{3}=3\},\quad y=(1,0,0)^{\top}.\]
+            Compute explicitly the projection \(p\) of \(y\) onto \(U\).
+        \end{enumerate}
+        \end{enumerate}
+    \end{exercise}
+
+\newpage
+
+    \begin{solution}\textbf{Affine Sets and Projections}
+        \begin{enumerate}[label=(\arabic*)]
+        \item 
+        \begin{enumerate}[label=(\alph*)]
+            \item 
+            $\forall$ $x_1, x_2 \in U$, $\forall \theta \in \mathbb{R}$, 
+            \[
+            A(\theta x_1 + (1-\theta)x_2) = \theta Ax_1 + (1-\theta)Ax_2 = \theta b + (1-\theta)b = b
+            \Longrightarrow
+            \theta x_1 + (1-\theta)x_2 \in U.
+            \]
+            namely $U$ is an affine set. 
+
+            $\forall$ $x \in U$, $\exists$ $y \in \mathbb{R}^n$, s.t.
+            \[
+            x+y\in U
+            \Longleftrightarrow
+            A(x+y) = Ax+Ay = b+Ay = b
+            \Longleftrightarrow
+            Ay = 0
+            \Longleftrightarrow
+            y \in \mathcal{N}(A)
+            \]
+            namely the direction space of $U$ is $\mathcal{N}(A)$.
+            \item 
+            $\forall$ $x_0 \in U$,
+            \[
+            x\in U
+            \Longleftrightarrow
+            Ax = b
+            \Longleftrightarrow
+            A(x - x_0) = 0
+            \Longleftrightarrow
+            x - x_0 \in \mathcal{N}(A)
+            \Longleftrightarrow
+            x \in x_0 + \mathcal{N}(A)
+            \]
+            Thus, $U = x_0 + \mathcal{N}(A)$.
+        \end{enumerate}
+        \item 
+        \begin{enumerate}[label=(\alph*)]
+            \item 
+            \begin{align*}
+                \min_{x \in \mathbb{R}^n} \quad & \|x - y\|_2^2 \\
+                \text{s.t.} \quad & A x = b
+            \end{align*}
+            \[
+            \xRightarrow{def}
+            L(x, \lambda) = \|x - y\|_2^2 + \lambda^{\top}(A x - b)
+            \]
+            \[
+            \nabla_{x} L
+            =
+            2(x-y) + A^{\top} \lambda
+            \xRightarrow{\nabla_{x} L = 0}
+            p = x^* = y - \frac{1}{2} A^{\top} \lambda
+            \]
+            \[
+            Ax = b
+            \Longrightarrow
+            A(y - \frac{1}{2} A^{\top} \lambda) = b
+            \Longrightarrow
+            A A^{\top} \lambda = 2(Ay - b)
+            \]
+            $A$ has full row rank $\Longrightarrow$ $AA^{\top} \in \mathbb{R}^{m \times m}$ is symmetric positive definite. $\Longrightarrow$ $AA^{\top}$ is invertible.
+            \[
+            \Longrightarrow
+            \lambda
+            =
+            2(AA^{\top})^{-1}(Ay-b)
+            \Longrightarrow
+            p=y-A^{\top}(AA^{\top})^{-1}(Ay-b)
+            \]
+            \item
+            \[
+            A = (1,2,-1),\quad b=3,\quad y=(1,0,0)^{\top}.
+            \]
+            \[
+            AA^{\top} = 1^2 + 2^2 + (-1)^2 = 6,\quad
+            Ay - b = 1*1 + 2*0 + (-1)*0 - 3 = -2.
+            \]
+            \[
+            p = y - A^{\top}(AA^{\top})^{-1}(Ay-b) 
+            = 
+            \begin{pmatrix}
+                1\\
+                0\\
+                0
+            \end{pmatrix} 
+            - 
+            \begin{pmatrix}
+                1\\
+                2\\
+                -1
+            \end{pmatrix}
+            \cdot \frac{1}{6} \cdot (-2)
+            = 
+            \begin{pmatrix}
+                \frac{4}{3}\\
+                \frac{2}{3}\\
+                -\frac{1}{3}
+            \end{pmatrix}.
+            \]
+        \end{enumerate}
+        \end{enumerate}
+        \end{solution}
+
+    \newpage
+
+    \begin{exercise}[Convex Sets, Images and Preimages]
+        Let \(C\subseteq\mathbb{R}^{n}\) be a nonempty convex set and let \(A\in\mathbb{R}^{m\times n}\), \(a\in\mathbb{R}^{m}\).
+        \begin{enumerate}[label=(\arabic*)]
+        \item Show that the affine image of \(C\),
+        \[D=\{y\in\mathbb{R}^{m}:y=Ax+a,\,x\in C\},\]
+        is convex.
+        
+        \item Define the affine preimage of \(C\) by
+        \[E=\{y\in\mathbb{R}^{m}:Ay+a\in C\}.\]
+        Show that \(E\) is convex.
+        
+        \item (Epigraph and hypograph)
+        \begin{enumerate}[label=(\alph*)]
+            \item Let \(f:\mathbb{R}^{n}\to\mathbb{R}\) be a convex function. The epigraph of \(f\) is 
+            \[\epi f=\{(x,t)\in\mathbb{R}^{n+1}:t\geq f(x)\}.\]
+            Show that \(\epi f\) is a convex set.
+            \item Let \(g:\mathbb{R}^{n}\to\mathbb{R}\) be concave. Its hypograph is 
+            \[\operatorname{hypo}g=\{(x,t)\in\mathbb{R}^{n+1}:t\leq g(x)\}.\]
+            Show that \(\operatorname{hypo}g\) is convex.
+        \end{enumerate}
+        
+        \item (Interior and relative interior -- computation) You do not need to prove your answers, but you should explain them briefly.
+        \begin{enumerate}[label=(\alph*)]
+            \item Find \(\intp C\) and \(\relint C\) for 
+            \[C=\{x\in\mathbb{R}^{3}:x_{1}^{2}+x_{2}^{2}<4,\ x_{3}\geq 0\}.\]
+            \item Let 
+            \[K=\{x\in\mathbb{R}^{n}:x_{i}\geq 0,\ \sum_{i=1}^{n}x_{i}=1\}\]
+            be the standard probability simplex. Determine \(\intp K\) (as a subset of \(\mathbb{R}^{n}\)) and \(\relint K\).
+        \end{enumerate}
+        \end{enumerate}
+    \end{exercise}
+
+\newpage
+
+    \begin{solution}\textbf{Convex Sets, Images and Preimages}
+        \begin{enumerate}[label=(\arabic*)]
+            \item 
+            $\forall$ $y_1, y_2 \in D$, $\exists$ $x_1, x_2 \in C$, s.t. $y_1 = A x_1 + a$, $y_2 = A x_2 + a$.
+            \[
+            C \text{ is convex } \Longrightarrow \forall \theta \in [0,1], \theta x_1 + (1-\theta) x_2 \in C,
+            \]
+            \[
+            \Longrightarrow
+            \theta y_1 + (1-\theta) y_2
+            =
+            \theta (A x_1 + a) + (1-\theta)(A x_2 + a)
+            =
+            A(\theta x_1 + (1-\theta) x_2) + a
+            \in D
+            \]
+            namely $D$ is convex.
+            \item 
+            $\forall$ $y_1, y_2 \in E$, $Ay_1 + a \in C$, $Ay_2 + a \in C$,
+            \[
+            C \text{ is convex.}
+            \Longrightarrow
+            \forall \theta \in [0,1],
+            \theta (Ay_1 + a) + (1-\theta)(Ay_2 + a)
+            =
+            A(\theta y_1 + (1-\theta) y_2) + a
+            \in C
+            \]
+            $\Longrightarrow$ $\theta y_1 + (1-\theta) y_2 \in E$, namely $E$ is convex.
+            \item 
+            \begin{enumerate}[label=(\alph*)]
+                \item 
+                $\forall$ $(x_1, t_1), (x_2, t_2) \in \epi f$, $t_1 \geq f(x_1)$, $t_2 \geq f(x_2)$,
+                \begin{align}
+                f \text{ is convex }
+                \Longrightarrow
+                \forall \theta \in [0,1],
+                \theta t_1 + (1-\theta) t_2 
+                &\geq \theta f(x_1) + (1-\theta) f(x_2)\nonumber\\
+                &\geq f(\theta x_1 + (1-\theta) x_2)\nonumber
+                \end{align}
+                $\Longrightarrow$ $(\theta x_1 + (1-\theta) x_2, \theta t_1 + (1-\theta) t_2) \in \epi f$, namely $\epi f$ is convex.
+                \item
+                \ding{172} $\forall$ $(x_1, t_1), (x_2, t_2) \in \operatorname{hypo} g$, $t_1 \leq g(x_1)$, $t_2 \leq g(x_2)$,
+                \begin{align}
+                g \text{ is concave }
+                \Longrightarrow
+                \forall \theta \in [0,1],
+                \theta t_1 + (1-\theta) t_2 
+                &\leq \theta g(x_1) + (1-\theta) g(x_2)\nonumber\\
+                &\leq g(\theta x_1 + (1-\theta) x_2)\nonumber
+                \end{align}
+                $\Longrightarrow$ $(\theta x_1 + (1-\theta) x_2, \theta t_1 + (1-\theta) t_2) \in \operatorname{hypo} g$, namely $\operatorname{hypo} g$ is convex.
+
+                \ding{173} Let $h = -g$, then $h$ is convex.
+                \[
+                t \leq g(x)
+                \Longleftrightarrow
+                -t \geq -g(x) = h(x)
+                \]
+                \[
+                (x,t) \in \operatorname{hypo} g
+                \Longleftrightarrow
+                (x,-t) \in \operatorname{epi} h
+                \]
+                Define the linear mapping:
+                \[
+                T: \mathbb{R}^{n+1} \to \mathbb{R}^{n+1},\quad 
+                T
+                \begin{pmatrix}
+                    x\\
+                    t
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    I_n & 0\\
+                    0 & -1
+                \end{pmatrix} 
+                \begin{pmatrix}
+                    x\\
+                    t
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    x\\
+                    -t
+                \end{pmatrix}
+                \]
+                According to (1) and (3)(a), $\epi h$ is convex $\Longrightarrow$ $T(\operatorname{hypo} g) = \epi h$ is convex $\Longrightarrow$ $\operatorname{hypo} g$ is convex.
+            \end{enumerate}
+            \item
+            \begin{enumerate}[label=(\alph*)]
+                \item 
+                \[
+                \intp C 
+                =
+                \relint C
+                = 
+                \{x\in\mathbb{R}^{3}:x_{1}^{2}+x_{2}^{2}<4,\ x_{3}>0\},
+                \]
+                Proof:
+                \[
+                B((0,0,1),\frac{1}{2}) \subset C
+                \Longrightarrow
+                3 \geq \dim C \geq \dim B((0,0,1),\frac{1}{2}) =3
+                \]
+                \[
+                \Longrightarrow
+                \dim C = \dim (\aff C) = 3
+                \Longrightarrow
+                \intp C = \relint C
+                \]
+                \item
+                \[
+                \intp K = \emptyset, \quad \relint K = \{x \in \mathbb{R}^n : x_i > 0, \sum_{i=1}^n x_i = 1\}.
+                \]
+                Proof:
+                \[
+                \dim K = n-1 < n
+                \Longrightarrow
+                \intp K = \emptyset
+                \]
+                \[
+                \aff K = \{x \in \mathbb{R}^n : \sum_{i=1}^n x_i = 1\}
+                \Longrightarrow
+                \relint K = \{x \in \mathbb{R}^n : x_i > 0, \sum_{i=1}^n x_i = 1\}.
+                \]
+            \end{enumerate}
+        \end{enumerate}
+    \end{solution}
+
+    \newpage
+
+    \begin{exercise}[Cones and Farkas-type Results]
+        Let \(A=(a_{1},\ldots,a_{n})\in\mathbb{R}^{m\times n}\) and consider the conic hull
+        \[\operatorname{cone}(A)=\left\{\sum_{i=1}^{n}\alpha_{i}a_{i}:\alpha_{i}\geq 0\right\}\subseteq\mathbb{R}^{m}.\]
+        
+        \begin{enumerate}[label=(\arabic*)]
+        \item Show that \(\operatorname{cone}(A)\) is a convex cone, i.e.,
+        \[x,y\in\operatorname{cone}(A),\ \lambda,\mu\geq 0\ \Rightarrow\ \lambda x+\mu y\in\operatorname{cone}(A).\]
+        
+        \item Show that \(\operatorname{cone}(A)\) is closed.
+        
+        \item (Gordan's theorem) Let \(A\in\mathbb{R}^{m\times n}\). Prove that exactly one of the following two systems has a solution:
+        \begin{itemize}
+            \item There exists \(x\in\mathbb{R}^{n}\) such that \(Ax>0\) (componentwise).
+            \item There exists \(y\in\mathbb{R}^{m}\), \(y\geq 0\), \(y\neq 0\), such that \(A^{\top}y=0\).
+        \end{itemize}
+        Hint: Consider appropriate cones and use separation theorems (you may assume standard separation results for closed convex cones).
+        
+        \item Show how Farkas' Lemma can be deduced from Gordan's theorem in part (3).
+        \end{enumerate}
+    \end{exercise}
+
+\newpage
+
+    \begin{solution}\textbf{Cones and Farkas-type Results}
+        \begin{enumerate}[label=(\arabic*)]
+            \item 
+            $\forall$ $x,y \in \operatorname{cone}(A)$, $
+            \exists$ $\alpha_i, \beta_i \geq 0$, s.t. $x = \sum_{i=1}^n \alpha_i a_i, \quad y = \sum_{i=1}^n \beta_i a_i$.
+            \begin{align*}
+            \forall \lambda, \mu \geq 0,
+            \lambda \alpha_i + \mu \beta_i \geq 0,
+            \Longrightarrow
+            \lambda x + \mu y
+            &=
+            \lambda \sum_{i=1}^n \alpha_i a_i + \mu \sum_{i=1}^n \beta_i a_i\\
+            &=
+            \sum_{i=1}^n (\lambda \alpha_i + \mu \beta_i) a_i \in \operatorname{cone}(A)
+            \end{align*}
+            \item 
+            First, prove that for each linear independent index set $I \subseteq \{1,2,\ldots,n\}$, the conic hull $\operatorname{cone}(A_I)$ is closed, where $A_I = (a_i)_{i \in I}$.
+
+            $\forall$ $\{x_k\} \subset \operatorname{cone}(A_I)$ with $x_k \to x \in \mathbb{R}^m$.
+            \[
+            x_k = \sum_{i \in I} \alpha_{i}^{(k)} a_i, \quad \alpha_{i}^{(k)} \geq 0.
+            \]
+            If $\{\alpha_{i}^{(k)}\}$ is unbounded, then $\exists$ subsequence $\{\alpha_{i}^{(k_j)}\}$, s.t. $\left\|\alpha^{(k_j)}\right\| \to \infty$. Define the normalized sequence: $\beta^{(k_j)} = \frac{\alpha^{(k_j)}}{\left\|\alpha^{(k_j)}\right\|}$. Since $\beta^{(k_j)}$ is bounded, $\exists$ convergent subsequence $\beta^{(k_{j_l})} \to \beta \geq 0$, $\|\beta\| = 1$. According to the continuity of linear mapping, $A_I \beta^{(k_{j_l})} \to A_I \beta$. On the other hand, $A_I \beta^{(k_{j_l})} = \frac{x_{k_{j_l}}}{\left\|\alpha^{(k_{j_l})}\right\|} \to 0$. Thus, $A_I \beta = 0$, i.e., $\sum_{i \in I} \beta_i a_i = 0$, which contradicts the linear independence of $\{a_i\}_{i \in I}$.
+            
+            Therefore, $\{\alpha_{i}^{(k)}\}$ is bounded $\Longrightarrow$ $\exists$ convergent subsequence $\alpha^{(k_j)} \to \alpha \geq 0$. According to the continuity of linear mapping, $\lim_{j \to \infty} A_I \alpha^{(k_j)} = A_I \alpha \in \operatorname{cone}(A_I)$ $\Longrightarrow$ $x \in \operatorname{cone}(A_I)$ $\Longrightarrow$ $\operatorname{cone}(A_I)$ is closed.
+
+            Second, every point in $C$ can be expressed as a nonnegative combination of at most $m$ linearly independent columns of $A$. Therefore, there are only finite linear independent index sets. For each linear independent index set $I$, $\operatorname{cone}(A_I)$ is closed $\Longrightarrow$ $\operatorname{cone}(A) = \bigcup_{I} \operatorname{cone}(A_I)$ is closed.
+            \item 
+            On the one hand, assume the first one has no solution. Then the sets
+            \[
+            U = \{Ax: x\in\mathbb{R}^n\}
+            , \quad
+            V = \{y \in \mathbb{R}^m: y > 0\}
+            \]
+            are disjoint convex sets. By the separation theorem for convex sets, $\exists$ $a \neq 0 \in \mathbb{R}^m$ and $\alpha \in \mathbb{R}$, s.t.
+            \[
+            a^{\top} u \leq \alpha, \forall u \in U
+            ,\quad
+            a^{\top} v \geq \alpha, \forall v \in V
+            \]
+            $0 \in U$, $a^{\top} 0 = 0 \leq \alpha$ $\Longrightarrow$ $\alpha \geq 0$.
+            $\forall$ $v \in V$, let $v \to 0$, then $\alpha \leq a^{\top} v \to 0$ $\Longrightarrow$ $\alpha = 0$.
+
+            Besides, 
+            \[
+            \text{``}u \in U
+            \Longleftrightarrow
+            -u \in U\text{''}
+            \Longrightarrow
+            a^{\top} u \leq 0, a^{\top} (-u) \leq 0
+            \Longrightarrow
+            a^{\top} u = 0, \forall u \in U
+            \]
+            \[
+            \left.
+            \begin{aligned}
+            a^{\top} u = a^{\top} A x = 0, \forall x\in \mathbb{R}^n &\Longrightarrow A^{\top} a = 0\\
+            a^{\top} v \geq 0, \forall v \in V &\Longrightarrow a \geq 0
+            \end{aligned}
+            \right\}
+            \Longrightarrow
+            \exists y = a \geq 0, y \neq 0, \text{ s.t. } A^{\top} y = 0.
+            \]
+            On the other hand, assume the second one holds. Then 
+            \[
+            \exists y \in \mathbb{R}^m, y\neq 0, y \geq 0, \text{ s.t. } A^{\top} y = 0.
+            \Longrightarrow 
+            \forall x \in \mathbb{R}^n, \quad y^{\top} A x = x^{\top} A^{\top} y = 0
+            \]
+            Because $y \neq 0$ and $y \geq 0$, $\exists$ $i$, s.t. $y_i > 0$ $\Longrightarrow$ $A x > 0$ is impossible. Thus, the first one has no solution.
+
+            In conclusion, the first one and the second one are mutually exclusive and collectively exhaustive, i.e., exactly one of the two systems has a solution.
+            \item
+            Farkas' Lemma:
+            Let $A \in \mathbb{R}^{m \times n}$ and $b \in \mathbb{R}^m$. Then exactly one of the following two systems has a solution:
+            \begin{itemize}
+                \item There exists $x \in \mathbb{R}^n$ such that $Ax = b$, $x \geq 0$ (componentwise).
+                \item There exists $y \in \mathbb{R}^m$ such that $A^{\top} y \geq 0$, $b^{\top} y < 0$.
+            \end{itemize}
+            Deduce Farkas' Lemma from Gordan's theorem:
+
+            Construct the augmented matrix $\tilde{A} = [A, -b]^{\top} \in \mathbb{R}^{(n+1) \times m}$. 
+
+            Case 1: $\exists$ $y \in \mathbb{R}^m$, s.t. $\tilde{A} y > 0$ $\Longleftrightarrow$ $A^{\top} y > 0$, $-b^{\top} y > 0$ $\Longleftrightarrow$ $A^{\top} y > 0$, $b^{\top} y < 0$ $\Longrightarrow$ the second one in Farkas' Lemma has a solution.
+
+            Case 2: $\exists$ $v \in \mathbb{R}^{n+1}$, $v \geq 0$, $v \neq 0$, s.t. $\tilde{A}^{\top} v = 0$. Define $v = (x,t)$, $x \in \mathbb{R}^n$, $t \in \mathbb{R}$. Then
+            \[
+            \tilde{A} v
+            =
+            A x - b t
+            =
+            0
+            ,
+            (x,t) \geq 0, (x,t) \neq 0
+            \]
+            If $t > 0$, let $x' = \frac{x}{t}$, then
+            \[
+            A x' = b, \quad x' \geq 0,
+            \]
+            namely the first one in Farkas' Lemma has a solution.
+
+            If $t = 0$, then $A x = 0$, $x \geq 0$, $x \neq 0$. If the first one has solution, it does not matter. If the first one has no solution, it means $b \notin \operatorname{cone}(A)$. According to (1) and (2), $\operatorname{cone}(A)$ is convex and closed. By the separation theorem for closed convex sets, $\exists$ $y \neq 0 \in \mathbb{R}^m$ and $\alpha \in \mathbb{R}$, s.t.
+            \[
+            y^{\top} u \geq \alpha, \forall u \in \operatorname{cone}(A)
+            ,\quad
+            y^{\top} b < \alpha
+            \]
+            $0 \in \operatorname{cone}(A)$ $\Longrightarrow$ $\alpha \leq 0$. If $\exists$ $u_0\in \operatorname{cone}(A)$, s.t. $y^{\top} u_0 < 0$, then for $\forall$ $\lambda > 0$, $\lambda u_0 \in \operatorname{cone}(A)$, $y^{\top} (\lambda u_0) = \lambda (y^{\top} u_0) \to -\infty$, which contradicts $y^{\top} u \geq \alpha$. Thus, 
+            \[
+            y^{\top} u \geq 0, \forall u \in \operatorname{cone}(A)
+            ,\quad
+            y^{\top} b < \alpha \leq 0
+            \]
+            \[
+            a_i = A e_i \in \operatorname{cone}(A)
+            \Longrightarrow
+            y^{\top} a_i \geq 0, \forall i
+            \Longrightarrow
+            A^{\top} y \geq 0
+            ,\quad
+            b^{\top} y = y^{\top} b < 0
+            \]
+            namely the second one in Farkas' Lemma has a solution.
+        \end{enumerate}
+    \end{solution}
+
+    \newpage
+    \bibliography{refs}
+    \bibliographystyle{abbrv}
+	
+\end{document}
